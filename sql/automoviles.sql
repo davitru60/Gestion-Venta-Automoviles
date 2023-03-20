@@ -22,7 +22,7 @@ CREATE TABLE ventas (
     fecha DATE NOT NULL,
     precio_venta DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (automovil_id) REFERENCES automoviles(id),
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
 INSERT INTO automoviles (marca, modelo, ano, color, precio) VALUES ('Chevrolet', 'Spark', 2020, 'Rojo', 10000.00);

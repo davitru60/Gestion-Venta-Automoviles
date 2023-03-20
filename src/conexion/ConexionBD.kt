@@ -1,0 +1,4 @@
+package conexion
+
+class ConexionBD {
+}
