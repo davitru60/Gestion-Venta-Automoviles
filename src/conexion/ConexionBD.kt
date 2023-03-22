@@ -10,7 +10,7 @@ class ConexionBD {
     private val driver = "com.mysql.cj.jdbc.Driver"
     private val usuario = "root"
     private val contrasenia = ""
-    private var conex: Connection? = null
+    var conex: Connection? = null
 
     fun conectar() {
         try{
