@@ -1,12 +1,13 @@
+
 package dao
 
-import no_dao.Venta
+import Venta
 
 interface IVentaDAO {
     fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta>
-    fun getVentaByID(id:Int):Empleado?
-    fun getAllVentas(ventas: Venta):List<Venta>
-    fun insertVenta(ventas: Venta):Boolean
-    fun updateVenta(venta: Venta):Boolean
-    fun deleteVenta(id: Int):Boolean
+    fun obtenerVentaMedianteID(id:Int):Venta?
+    fun obtenerTodasLasVentas(ventas: Venta):List<Venta>
+    fun insertarVenta(ventas: Venta):Boolean
+    fun actualizarVentas(venta: Venta):Boolean
+    fun borrarVenta(id: Int):Boolean
 }

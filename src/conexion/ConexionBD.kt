@@ -35,4 +35,8 @@ class ConexionBD {
     fun getPreparedStatement(sql: String): PreparedStatement? {
         return conex?.prepareStatement(sql)
     }
+
+    fun getStatement(): Statement? {
+        return conn?.createStatement()
+    }
 }
