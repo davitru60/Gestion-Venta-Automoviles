@@ -19,7 +19,7 @@ CREATE TABLE ventas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     automovil_id INT NOT NULL,
     cliente_id INT NOT NULL,
-    fecha VARCHA NOT NULL,
+    fecha VARCHAR NOT NULL,
     precio_venta DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (automovil_id) REFERENCES automoviles(id),
     FOREIGN KEY (cliente_id) REFERENCES clientes(id)
