@@ -40,6 +40,8 @@ class AutomovilImpDAO:IAutomovilDAO {
         var resultado:Int?=1
 
         try{
+
+
             val consulta="UPDATE AUTOMOVILES SET PRECIO=? WHERE ID=?"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
             preparedStatement?.setDouble(1,automovil.precio)
@@ -135,17 +137,20 @@ class AutomovilImpDAO:IAutomovilDAO {
         var ejecucionConsulta:Int
         var resultado:Int?=1
         try{
+
+            //Eliminar el registro
             val consulta="DELETE FROM AUTOMOVILES WHERE ID=?"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
             preparedStatement?.setInt(1,id)
 
             resultado=preparedStatement?.executeUpdate()
             ejecucionConsulta=1
-
             preparedStatement?.close()
+
             conexionBD.desconectar()
 
         }catch(e:Exception){
+            println("Error al eliminar el automovil:${e.message}")
             ejecucionConsulta=0
             conexionBD.desconectar()
         }

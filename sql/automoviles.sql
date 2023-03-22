@@ -1,3 +1,8 @@
+DROP TABLE VENTAS;
+DROP TABLE AUTOMOVILES;
+DROP TABLE CLIENTES;
+
+
 CREATE TABLE automoviles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     marca VARCHAR(255) NOT NULL,
@@ -21,8 +26,8 @@ CREATE TABLE ventas (
     cliente_id INT NOT NULL,
     fecha DATE NOT NULL,
     precio_venta DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (automovil_id) REFERENCES automoviles(id),
-    FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+    FOREIGN KEY (automovil_id) REFERENCES automoviles(id) ON DELETE CASCADE,
+    FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE CASCADE
 );
 
 INSERT INTO automoviles (marca, modelo, ano, color, precio) VALUES ('Chevrolet', 'Spark', 2020, 'Rojo', 10000.00);

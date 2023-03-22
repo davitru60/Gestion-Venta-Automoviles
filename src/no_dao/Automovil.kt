@@ -28,7 +28,7 @@ class Automovil {
     }
 
     override fun toString(): String {
-        return "Marca:$marca, modelo:$modelo, año:$ano, color:$color, precio:$precio€"
+        return "ID:$id, marca:$marca, modelo:$modelo, año:$ano, color:$color, precio:$precio€"
     }
 
 

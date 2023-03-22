@@ -1,6 +1,7 @@
 import conexion.ConexionBD
 import dao.AutomovilImpDAO
 import no_dao.Automovil
+import java.lang.NumberFormatException
 
 fun main(){
     var conexion= ConexionBD()
@@ -48,10 +49,10 @@ fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
         println("\n")
         println("¿Qué deseas hacer?")
         println("1. Insertar automovil")
-        println("2. Obtener automoviles por rango de precios")
-        println("3. Obtener automovil por marca")
-        println("4. Obtener todos los automoviles")
-        println("5. Actualizar precio de un automovil")
+        println("2. Actualizar precio de un automovil")
+        println("3. Obtener automoviles por rango de precios")
+        println("4. Obtener automovil por marca")
+        println("5. Obtener todos los automoviles")
         println("6. Eliminar automovil")
 
         str = readln()
@@ -170,11 +171,64 @@ fun obtenerTodosLosAutomoviles(automovilDAO: AutomovilImpDAO){
     }
 }
 fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
-    println("¿Que vehiculo deseas actualizar?")
-    obtenerTodosLosAutomoviles(automovilDAO)
+    var eleccion=0
+    var precio=0.0
+    println("Vehiculos disponibles")
+
+    var automoviles=automovilDAO.obtenerTodosLosAutomoviles()
+    if (automoviles != null) {
+        for(automovil in automoviles){
+            println(automovil)
+        }
+    }
+
+    try{
+        println("¿Que vehiculo deseas actualizar?")
+        eleccion=readln().toInt()
+        var automovilElegido= automoviles!![eleccion]
+
+        println("Introduce el nuevo precio")
+        precio=readln().toDouble()
+
+        automovilElegido= Automovil(automovilElegido.id,automovilElegido.marca,automovilElegido.modelo,
+            automovilElegido.ano,automovilElegido.color,precio)
+
+        if(automovilDAO.actualizarPrecioAutomovil(automovilElegido)){
+            println("Se actualizó correctamente el automovil")
+        }else{
+            println("No se actualizó correctamente el automovil")
+        }
+
+
+    }catch(e:NumberFormatException){
+        actualizarPrecioAutomovil(automovilDAO)
+    }
+
+
 
 }
 
 fun eliminarAutomovil(automovilDAO: AutomovilImpDAO){
+    var eleccion=0
+    println("Vehiculos disponibles")
 
+    obtenerTodosLosAutomoviles(automovilDAO)
+
+    try{
+        println("¿Que vehiculo deseas eliminar? (Debes elegir un codigo)")
+        eleccion=readln().toInt()
+
+
+        if(automovilDAO.eliminarAutomovil(eleccion)){
+            println("Se eliminó correctamente el automovil")
+        }else{
+            println("No se eliminó correctamente el automovil")
+        }
+
+    }catch(e:NumberFormatException){
+        eliminarAutomovil(automovilDAO)
+    }
 }
+
+
+
