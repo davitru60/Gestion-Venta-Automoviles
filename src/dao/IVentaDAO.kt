@@ -1,5 +1,7 @@
 package dao
 
+import no_dao.Venta
+
 interface IVentaDAO {
     fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta>
     fun getVentaByID(id:Int):Empleado?
