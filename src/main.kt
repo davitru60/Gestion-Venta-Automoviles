@@ -3,6 +3,7 @@ import dao.AutomovilImpDAO
 import dao.ClienteImpDAO
 import dao.VentaImpDAO
 import no_dao.Automovil
+import no_dao.Cliente
 
 fun main(){
     var conexion= ConexionBD()
@@ -97,29 +98,37 @@ fun menuClientes(clienteDAO: ClienteImpDAO){
                 -1
             }
         when(seleccion) {
-            1 -> aniadirCliente()
-            2 -> eliminarCliente()
-            3 -> verClientes()
-            4 -> buscarCliente()
+            1 -> aniadirCliente(clienteDAO)
+            2 -> eliminarCliente(clienteDAO)
+            3 -> verClientes(clienteDAO)
+            4 -> buscarCliente(clienteDAO)
 
             else -> println("Opcion incorrecta")
         }
     } while (seleccion != 0)
 }
 
-private fun buscarCliente() {
-    buscarCliente()
+private fun buscarCliente(clienteDAO: ClienteImpDAO) {
+    var id:Int
+    println("Dime la id del cliente que desea buscar")
+    id= readln().toInt()
+    val buscarCliente= clienteDAO.buscarCliente(id)
 }
 
-private fun verClientes() {
-    verClientes()
+private fun verClientes(clienteDAO: ClienteImpDAO):List<Cliente> {
+    val verCliente= clienteDAO.verListaCliente()
+    return verCliente
 }
 
-private fun eliminarCliente() {
-    eliminarCliente()
+private fun eliminarCliente(clienteDAO: ClienteImpDAO) {
+    var id:Int
+    println("Dime la id del cliente que desea eliminar")
+    id= readln().toInt()
+    val eliminarCliente= clienteDAO.eliminarCliente(id)
+    eliminarCliente
 }
 
-private fun aniadirCliente() {
+private fun aniadirCliente(clienteDAO: ClienteImpDAO) {
     var nombre:String
     var apellido:String
     var email:String
@@ -132,6 +141,8 @@ private fun aniadirCliente() {
     email= readln()
     println("Dime el telefono del cliente")
     telefono= readln().toInt()
+    val aniadirCliente= clienteDAO.aniadirCliente(Cliente(nombre, apellido, email, telefono))
+    aniadirCliente
 }
 
 fun menuVentas(){

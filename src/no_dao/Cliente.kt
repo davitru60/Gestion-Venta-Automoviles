@@ -19,4 +19,5 @@ class Cliente {
         this.email=email
         this.telefono=telefono
     }
+
 }
