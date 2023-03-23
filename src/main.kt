@@ -75,8 +75,31 @@ fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
 
 }
 
-fun menuClientes(automovilDAO: AutomovilImpDAO){
+fun menuClientes(ClienteDAO: ClienteImpDAO){
+    var seleccion: Int
+    var str: String
+    do {
+        println("¿Qué deseas hacer con el cliente?")
+        println("1. Añadir un cliente")
+        println("2. Eliminar un cliente")
+        println("3. Ver la lista de clientes")
+        println("4. Buscar un cliente")
 
+        str = readln()
+        seleccion =
+            try {
+                str.toInt()
+            } catch (e: Exception) {
+                -1
+            }
+        when(seleccion) {
+            1 -> ClienteImpDAO.añadircliente(automovilDAO)
+            2 -> menuClientes(automovilDAO)
+            3 -> obtenerAutomovilesPorMarca(automovilDAO)
+
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
 }
 
 fun menuVentas(){
