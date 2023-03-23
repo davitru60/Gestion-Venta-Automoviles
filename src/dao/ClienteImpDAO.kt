@@ -1,5 +1,6 @@
 package dao
 
+import no_dao.Cliente
 import java.sql.*
 
 class ClienteImpDAO : IClienteDAO{
@@ -8,7 +9,7 @@ class ClienteImpDAO : IClienteDAO{
     private val password = "mypassword"
 
     override fun añadirCliente(nombre: String, apellido: String, email: String, telefono: String) {
-        val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);
+        val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?)"
         val conn = ConexionBD
         conn.conectar().setString(1, nombre)
         conn.conectar().setString(2, apellido)

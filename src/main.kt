@@ -1,10 +1,12 @@
 import conexion.ConexionBD
 import dao.AutomovilImpDAO
+import dao.ClienteImpDAO
 import no_dao.Automovil
 
 fun main(){
     var conexion= ConexionBD()
     val automovilDAO=AutomovilImpDAO()
+    val clienteDAO=ClienteImpDAO()
 
     if(conexion !=null){
         println("Conectado con exito")
@@ -34,7 +36,7 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO){
         when(seleccion) {
             1 -> menuAutomoviles(automovilDAO)
             2 -> menuClientes(automovilDAO)
-            3 -> obtenerAutomovilesPorMarca(automovilDAO)
+            3 -> menuVentas()
 
             else -> println("Opcion incorrecta")
         }
@@ -75,7 +77,7 @@ fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
 
 }
 
-fun menuClientes(ClienteDAO: ClienteImpDAO){
+fun menuClientes(clienteDAO: ClienteImpDAO){
     var seleccion: Int
     var str: String
     do {
