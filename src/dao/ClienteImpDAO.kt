@@ -1,16 +1,18 @@
 package dao
 
+import conexion.ConexionBD
+import no_dao.Cliente
+
 class ClienteImpDAO : IClienteDAO {
-    // ...
-    override fun aniadirCliente(nombre: String, apellido: String, email: String, telefono: String) {
+    override fun aniadirCliente(cliente:Cliente) {
         val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);"
         val conn = ConexionBD()
         conn.conectar()
         val ps = conn.getPreparedStatement(sql)
-        ps?.setString(1, nombre)
-        ps?.setString(2, apellido)
-        ps?.setString(3, email)
-        ps?.setString(4, telefono)
+        ps?.setString(1, cliente.nombre)
+        ps?.setString(2, cliente.apellido)
+        ps?.setString(3, cliente.email)
+        ps?.setInt(4, cliente.telefono)
         ps?.executeUpdate()
         conn.desconectar()
     }
@@ -37,7 +39,7 @@ class ClienteImpDAO : IClienteDAO {
             val nombre = rs.getString("nombre")
             val apellido = rs.getString("apellido")
             val email = rs.getString("email")
-            val telefono = rs.getString("telefono")
+            val telefono = rs.getInt("telefono")
             clientes.add(Cliente(id,nombre, apellido, email, telefono))
         }
         rs?.close()
@@ -58,7 +60,7 @@ class ClienteImpDAO : IClienteDAO {
             val nombre = rs.getString("nombre")
             val apellido = rs.getString("apellido")
             val email = rs.getString("email")
-            val telefono = rs.getString("telefono")
+            val telefono = rs.getInt("telefono")
             cliente = Cliente(id, nombre, apellido, email, telefono)
         }
         rs?.close()

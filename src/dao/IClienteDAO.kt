@@ -1,8 +1,10 @@
 package dao
 
+import no_dao.Cliente
+
 interface IClienteDAO {
-    fun aniadirCliente()
-    fun eliminarCliente()
-    fun verListaCliente()
-    fun BuscarCliente()
+    fun aniadirCliente(cliente:Cliente)
+    fun eliminarCliente(id:Int)
+    fun verListaCliente():List<Cliente>
+    fun buscarCliente(id: Int):Cliente?
 }
