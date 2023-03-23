@@ -1,6 +1,8 @@
 import conexion.ConexionBD
 import dao.AutomovilImpDAO
+import dao.VentaImpDAO
 import no_dao.Automovil
+import no_dao.Venta
 
 fun main(){
     var conexion= ConexionBD()
@@ -13,7 +15,7 @@ fun main(){
         println("Error al conectar")
     }
 
-    menuGeneral()
+
 }
 
 fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
@@ -198,7 +200,7 @@ fun borrarVenta(){
     println("Venta borrada: $borrado")
 }
 
-fun menuVentas(lista: ArrayList<Venta>, venta:Venta, id:Int ){
+fun menuVentas(){
     var s:Int=0
     println()
     println("¿Qué opción de venta desea?")

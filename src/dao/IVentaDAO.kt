@@ -1,7 +1,7 @@
 
 package dao
 
-import Venta
+import no_dao.Venta
 
 interface IVentaDAO {
     fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta>
