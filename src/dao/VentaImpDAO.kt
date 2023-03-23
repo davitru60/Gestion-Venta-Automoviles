@@ -8,28 +8,28 @@ import java.sql.SQLException
 class VentaImpDAO: IVentaDAO {
     private val conexion = ConexionBD()
 
-    override fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta> {
+    override fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta>{
         conexion.conectar()
         var result: Int? = null
         var ps: PreparedStatement? = null
-        val listaNoInsertados = ArrayList<Venta>()
 
         val query = "INSERT INTO ventas (automovil_id, cliente_id, fecha, precio_venta) VALUES (?, ?, ?, ?)"
         ps = conexion.getPreparedStatement(query)
         for (i in v) {
             try {
-                ps?.setInt(1, i.automovil_id)
-                ps?.setInt(2, i.cliente_id)
-                ps?.setString(3, i.fecha)
-                ps?.setFloat(4, i.precio_venta)
+                ps?.setInt(2, i.automovil_id)
+                ps?.setInt(3, i.cliente_id)
+                ps?.setString(4, i.fecha)
+                ps?.setDouble(5, i.precio_venta)
                 result = ps?.executeUpdate()
             } catch (e: Exception) {
-                listaNoInsertados.add(i)
+
+            } finally {
+                ps?.close()
+                conexion.desconectar()
             }
         }
-        ps?.close()
-        conexion.desconectar()
-        return listaNoInsertados
+        return v
     }
 
     override fun obtenerVentaMedianteID(id:Int):Venta? {
@@ -45,7 +45,7 @@ class VentaImpDAO: IVentaDAO {
                 rs.getInt("automovil_id"),
                 rs.getInt("cliente_id"),
                 rs.getString("fecha"),
-                rs.getFloat("precio_venta")
+                rs.getDouble("precio_venta")
             )
         }
         ps?.close()
@@ -53,7 +53,7 @@ class VentaImpDAO: IVentaDAO {
         return venta
     }
 
-    override fun obtenerTodasLasVentas(ventas: Venta): List<Venta> {
+    override fun obtenerTodasLasVentas(): List<Venta> {
         conexion.conectar()
         val query = "SELECT * FROM ventas"
         val st = conexion.getStatement()
@@ -65,7 +65,7 @@ class VentaImpDAO: IVentaDAO {
                 rs.getInt("automovil_id"),
                 rs.getInt("cliente_id"),
                 rs.getString("fecha"),
-                rs.getFloat("precio_venta")
+                rs.getDouble("precio_venta")
             )
             ventas.add(venta)
         }
@@ -74,18 +74,24 @@ class VentaImpDAO: IVentaDAO {
         return ventas
     }
 
-    override fun insertarVenta(venta: Venta): Boolean {
-        var result: Int? = null
-        var ps: PreparedStatement? = null
+    override fun actualizarVentas(venta: Venta): Boolean {
+        conexion.conectar()
+        var result:Int?= null
+        val query = "UPDATE ventas SET id=?, automovil_id = ?, cliente_id = ?, fecha = ?, precio_venta = ? WHERE id = ?"
+        val ps = conexion.getPreparedStatement(query)
         try {
-            conexion.conectar()
-            val query = "INSERT INTO ventas (automovil_id, cliente_id, fecha, precio_venta) VALUES (?, ?, ?, ?)"
-            ps = conexion.getPreparedStatement(query)
-            ps?.setInt(1, venta.automovil_id)
-            ps?.setInt(2, venta.cliente_id)
-            ps?.setString(3, venta.fecha)
-            ps?.setFloat(4, venta.precio_venta)
+            ps?.setInt(1, venta.id)
+            ps?.setInt(2, venta.automovil_id)
+            ps?.setInt(3, venta.cliente_id)
+            ps?.setString(4, venta.fecha)
+            ps?.setDouble(5, venta.precio_venta)
             result = ps?.executeUpdate()
+            // Obtener el valor del ID generado automáticamente
+            val rs = ps?.generatedKeys
+            if (rs?.next() == true) {
+                val idGenerado = rs.getInt(1)
+                venta.id = idGenerado // Actualizar el ID en el objeto Venta
+            }
         } catch (e: SQLException) {
             println(e.message)
         } finally {
@@ -95,29 +101,29 @@ class VentaImpDAO: IVentaDAO {
         return result == 1
     }
 
-    override fun actualizarVentas(venta: Venta): Boolean {
-        conexion.conectar()
-        val query = "UPDATE ventas SET automovil_id = ?, cliente_id = ?, fecha = ?, precio_venta = ? WHERE id = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, venta.id)
-        ps?.setInt(2, venta.automovil_id)
-        ps?.setInt(3, venta.cliente_id)
-        ps?.setString(4, venta.fecha)
-        ps?.setFloat(5, venta.precio_venta)
-        val result = ps?.executeUpdate()
-        ps?.close()
-        conexion.desconectar()
-        return result == 1
-    }
-
     override fun borrarVenta(id: Int): Boolean {
         conexion.conectar()
-        val query = "DELETE FROM ventas WHERE id = ?"
-        val ps = conexion.getPreparedStatement(query)
-        ps?.setInt(1, id)
-        val result = ps?.executeUpdate()
-        ps?.close()
+        var existe = false
+        var result: Int? = null
+        val queryConsulta = "SELECT id FROM ventas WHERE id = ?"
+        val psConsulta = conexion.getPreparedStatement(queryConsulta)
+        psConsulta?.setInt(1, id)
+        val rsConsulta = psConsulta?.executeQuery()
+        if (rsConsulta?.next() == true) {
+            existe = true
+        }
+        psConsulta?.close()
+
+        if (existe) {
+            val queryDelete = "DELETE FROM ventas WHERE id = ?"
+            val psDelete = conexion.getPreparedStatement(queryDelete)
+            psDelete?.setInt(1, id)
+            result = psDelete?.executeUpdate()
+            psDelete?.close()
+        }
+
         conexion.desconectar()
+
         return result == 1
     }
 }
