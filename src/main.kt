@@ -1,12 +1,14 @@
 import conexion.ConexionBD
 import dao.AutomovilImpDAO
 import dao.ClienteImpDAO
+import dao.VentaImpDAO
 import no_dao.Automovil
 
 fun main(){
     var conexion= ConexionBD()
     val automovilDAO=AutomovilImpDAO()
     val clienteDAO=ClienteImpDAO()
+    val ventaDAO=VentaImpDAO()
 
     if(conexion !=null){
         println("Conectado con exito")
@@ -17,7 +19,7 @@ fun main(){
 }
 
 
-fun menuGeneral(automovilDAO: AutomovilImpDAO){
+fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO,ventaDAO: VentaImpDAO){
     var seleccion: Int
     var str: String
     do {
@@ -35,8 +37,8 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO){
             }
         when(seleccion) {
             1 -> menuAutomoviles(automovilDAO)
-            2 -> menuClientes(automovilDAO)
-            3 -> menuVentas()
+            2 -> menuClientes(clienteDAO)
+            3 -> menuVentas(ventaDAO)
 
             else -> println("Opcion incorrecta")
         }
@@ -118,7 +120,18 @@ private fun eliminarCliente() {
 }
 
 private fun aniadirCliente() {
-    aniadirCliente()
+    var nombre:String
+    var apellido:String
+    var email:String
+    var telefono:Int
+    println("Dime el nombre del cliente")
+    nombre= readln()
+    println("Dime el apellido del cliente")
+    apellido= readln()
+    println("Dime el email del cliente")
+    email= readln()
+    println("Dime el telefono del cliente")
+    telefono= readln().toInt()
 }
 
 fun menuVentas(){
