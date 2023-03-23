@@ -95,13 +95,30 @@ fun menuClientes(clienteDAO: ClienteImpDAO){
                 -1
             }
         when(seleccion) {
-            1 -> ClienteImpDAO.añadircliente(automovilDAO)
-            2 -> menuClientes(automovilDAO)
-            3 -> obtenerAutomovilesPorMarca(automovilDAO)
+            1 -> aniadirCliente()
+            2 -> eliminarCliente()
+            3 -> verClientes()
+            4 -> buscarCliente()
 
             else -> println("Opcion incorrecta")
         }
     } while (seleccion != 0)
+}
+
+private fun buscarCliente() {
+    buscarCliente()
+}
+
+private fun verClientes() {
+    verClientes()
+}
+
+private fun eliminarCliente() {
+    eliminarCliente()
+}
+
+private fun aniadirCliente() {
+    aniadirCliente()
 }
 
 fun menuVentas(){

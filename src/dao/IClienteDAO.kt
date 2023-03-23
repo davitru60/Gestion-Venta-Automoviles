@@ -1,7 +1,7 @@
 package dao
 
 interface IClienteDAO {
-    fun añadirCliente()
+    fun aniadirCliente()
     fun eliminarCliente()
     fun verListaCliente()
     fun BuscarCliente()
