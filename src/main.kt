@@ -117,7 +117,7 @@ fun insertarAutomovil(automovilDAO: AutomovilImpDAO){
     }while(!regex.matches(marca))
 
 
-    println("Inserta el año")
+     println("Inserta el año")
      anio=readln().toInt()
 
      println("Inserta el color")
@@ -128,10 +128,13 @@ fun insertarAutomovil(automovilDAO: AutomovilImpDAO){
 
     val nuevoAutomovil= Automovil(marca,modelo,anio,color,precio)
 
+    comprobarInsercionAutomovil(automovilDAO, nuevoAutomovil)
+}
 
-    if(automovilDAO.insertarAutomovil(nuevoAutomovil)){
+fun comprobarInsercionAutomovil(automovilDAO: AutomovilImpDAO, nuevoAutomovil: Automovil) {
+    if (automovilDAO.insertarAutomovil(nuevoAutomovil)) {
         println("Se insertó correctamente el automovil")
-    }else{
+    } else {
         println("No se insertó correctamente el automovil")
     }
 }
@@ -202,15 +205,19 @@ fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
         automovilElegido= Automovil(automovilElegido.id,automovilElegido.marca,automovilElegido.modelo,
             automovilElegido.ano,automovilElegido.color,precio)
 
-        if(automovilDAO.actualizarPrecioAutomovil(automovilElegido)){
-            println("Se actualizó correctamente el automovil")
-        }else{
-            println("No se actualizó correctamente el automovil")
-        }
+        comprobarActualizacionPrecioAutomovil(automovilDAO, automovilElegido)
 
 
     }catch(e:NumberFormatException){
         actualizarPrecioAutomovil(automovilDAO)
+    }
+}
+
+fun comprobarActualizacionPrecioAutomovil(automovilDAO: AutomovilImpDAO, automovilElegido: Automovil) {
+    if (automovilDAO.actualizarPrecioAutomovil(automovilElegido)) {
+        println("Se actualizó correctamente el automovil")
+    } else {
+        println("No se actualizó correctamente el automovil")
     }
 }
 
@@ -223,16 +230,18 @@ fun eliminarAutomovil(automovilDAO: AutomovilImpDAO){
     try{
         println("¿Que vehiculo deseas eliminar? (Debes elegir un codigo)")
         eleccion=readln().toInt()
-
-
-        if(automovilDAO.eliminarAutomovil(eleccion)){
-            println("Se eliminó correctamente el automovil")
-        }else{
-            println("No se eliminó correctamente el automovil")
-        }
+        comprobarEliminacionAutomovil(automovilDAO, eleccion)
 
     }catch(e:NumberFormatException){
         eliminarAutomovil(automovilDAO)
+    }
+}
+
+fun comprobarEliminacionAutomovil(automovilDAO: AutomovilImpDAO, eleccion: Int) {
+    if (automovilDAO.eliminarAutomovil(eleccion)) {
+        println("Se eliminó correctamente el automovil")
+    } else {
+        println("No se eliminó correctamente el automovil")
     }
 }
 
