@@ -329,6 +329,7 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO){
         println("1. Realizar acciones con los automoviles")
         println("2. Realizar acciones con los clientes")
         println("3. Realizar acciones con las ventas")
+        println("4. Salir del programa")
 
         str = readln()
         seleccion =
@@ -341,6 +342,7 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO){
             1 -> menuAutomoviles(automovilDAO)
             2 -> menuClientes(automovilDAO)
             3 -> menuVentas()
+            4 -> break
 
             else -> println("Opcion incorrecta")
         }
