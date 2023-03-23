@@ -12,35 +12,10 @@ fun main(){
     }else{
         println("Error al conectar")
     }
+
+    menuGeneral()
 }
 
-
-fun menuGeneral(automovilDAO: AutomovilImpDAO){
-    var seleccion: Int
-    var str: String
-    do {
-        println("¿Qué deseas hacer?")
-        println("1. Realizar acciones con los automoviles")
-        println("2. Realizar acciones con los clientes")
-        println("3. Realizar accioens con las ventas")
-
-        str = readln()
-        seleccion =
-            try {
-                str.toInt()
-            } catch (e: Exception) {
-                -1
-            }
-        when(seleccion) {
-            1 -> menuAutomoviles(automovilDAO)
-            2 -> menuClientes(automovilDAO)
-            3 -> obtenerAutomovilesPorMarca(automovilDAO)
-
-            else -> println("Opcion incorrecta")
-        }
-    } while (seleccion != 0)
-
-}
 fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
     var seleccion: Int
     var str: String
@@ -343,3 +318,30 @@ fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
 fun eliminarAutomovil(automovilDAO: AutomovilImpDAO){
 
 }
+
+fun menuGeneral(automovilDAO: AutomovilImpDAO){
+    var seleccion: Int
+    var str: String
+    do {
+        println("¿Qué deseas hacer?")
+        println("1. Realizar acciones con los automoviles")
+        println("2. Realizar acciones con los clientes")
+        println("3. Realizar acciones con las ventas")
+
+        str = readln()
+        seleccion =
+            try {
+                str.toInt()
+            } catch (e: Exception) {
+                -1
+            }
+        when(seleccion) {
+            1 -> menuAutomoviles(automovilDAO)
+            2 -> menuClientes(automovilDAO)
+            3 -> menuVentas()
+
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
+}
+
