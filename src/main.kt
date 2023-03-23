@@ -108,7 +108,16 @@ fun insertarAutomovil(automovilDAO: AutomovilImpDAO){
      println("Inserta el modelo")
      modelo=readln().toString()
 
-     println("Inserta el año")
+    do{
+        if(!regex.matches(marca)){
+            println("Modelo inválido. Inserta el modelo nuevamente")
+            marca= readln().toString()
+        }
+
+    }while(!regex.matches(marca))
+
+
+    println("Inserta el año")
      anio=readln().toInt()
 
      println("Inserta el color")
@@ -203,9 +212,6 @@ fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
     }catch(e:NumberFormatException){
         actualizarPrecioAutomovil(automovilDAO)
     }
-
-
-
 }
 
 fun eliminarAutomovil(automovilDAO: AutomovilImpDAO){
