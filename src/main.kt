@@ -2,15 +2,18 @@ import conexion.ConexionBD
 import dao.AutomovilImpDAO
 import dao.ClienteImpDAO
 import dao.VentaImpDAO
-import no_dao.*
+import no_dao.Automovil
+import no_dao.Venta
+import java.lang.NumberFormatException
 
 fun main(){
     var conexion= ConexionBD()
     val automovilDAO=AutomovilImpDAO()
+    val clienteDAO=ClienteImpDAO()
 
     if(conexion !=null){
         println("Conectado con exito")
-        menuGeneral()
+        menuGeneral(automovilDAO,clienteDAO)
     }else{
         println("Error al conectar")
     }
@@ -18,19 +21,16 @@ fun main(){
 
 }
 
-fun menuAutomoviles(automovilDAO: AutomovilImpDAO) {
-    val automovilFuncionalidades = AutomovilFuncionalidades()
+fun menuClientes(clienteDAO: ClienteImpDAO){
     var seleccion: Int
     var str: String
+    var cliente=ClienteFuncionalidad()
     do {
-        println("\n")
-        println("¿Qué deseas hacer?")
-        println("1. Insertar automovil")
-        println("2. Obtener automoviles por rango de precios")
-        println("3. Obtener automovil por marca")
-        println("4. Obtener todos los automoviles")
-        println("5. Actualizar precio de un automovil")
-        println("6. Eliminar automovil")
+        println("¿Qué deseas hacer con el cliente?")
+        println("1. Añadir un cliente")
+        println("2. Eliminar un cliente")
+        println("3. Ver la lista de clientes")
+        println("4. Buscar un cliente")
 
         str = readln()
         seleccion =
@@ -39,20 +39,20 @@ fun menuAutomoviles(automovilDAO: AutomovilImpDAO) {
             } catch (e: Exception) {
                 -1
             }
-        when (seleccion) {
-            1 -> automovilFuncionalidades.insertarAutomovil(automovilDAO)
-            2 -> automovilFuncionalidades.actualizarPrecioAutomovil(automovilDAO)
-            3 -> automovilFuncionalidades.obtenerAutomovilesPorRangoDePrecio(automovilDAO)
-            4 -> automovilFuncionalidades.obtenerAutomovilesPorMarca(automovilDAO)
-            5 -> automovilFuncionalidades.obtenerTodosLosAutomoviles(automovilDAO)
-            6 -> automovilFuncionalidades.eliminarAutomovil(automovilDAO)
+        when(seleccion) {
+            1 -> cliente.aniadirCliente(clienteDAO)
+            2 -> cliente.eliminarCliente(clienteDAO)
+            3 -> cliente.verClientes(clienteDAO)
+            4 -> cliente.buscarCliente(clienteDAO)
+
             else -> println("Opcion incorrecta")
         }
     } while (seleccion != 0)
-
 }
 
-fun menuGeneral(){
+
+
+fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO){
     var seleccion: Int
     var str: String
     do {
@@ -79,4 +79,3 @@ fun menuGeneral(){
         }
     } while (seleccion != 0)
 }
-
