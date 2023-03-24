@@ -7,20 +7,21 @@ import no_dao.Cliente
 
 fun main(){
     var conexion= ConexionBD()
-    val automovilDAO=AutomovilImpDAO()
-    val clienteDAO=ClienteImpDAO()
-    val ventaDAO=VentaImpDAO()
+
 
     if(conexion !=null){
         println("Conectado con exito")
-        menuGeneral(automovilDAO)
+        menuGeneral()
     }else{
         println("Error al conectar")
     }
 }
 
 
-fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO,ventaDAO: VentaImpDAO){
+fun menuGeneral(){
+    val automovilDAO=AutomovilImpDAO()
+    val clienteDAO=ClienteImpDAO()
+    val ventaDAO=VentaImpDAO()
     var seleccion: Int
     var str: String
     do {
