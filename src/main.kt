@@ -9,20 +9,19 @@ import java.lang.NumberFormatException
 
 fun main(){
     var conexion= ConexionBD()
-    val automovilDAO=AutomovilImpDAO()
+
 
     if(conexion !=null){
         println("Conectado con exito")
-        menuGeneral(automovilDAO)
+        menuGeneral()
     }else{
         println("Error al conectar")
     }
 
 
 }
-val ventaDAO = VentaImpDAO()
 
-fun menuGeneral(automovilDAO: AutomovilImpDAO){
+fun menuGeneral(){
     var seleccion: Int
     var str: String
     do {
@@ -108,4 +107,33 @@ fun menuVentas(){
         4->venta.actualizarVentas()
         5->venta.borrarVenta()
     }
+}
+
+fun menuClientes(clienteDAO: ClienteImpDAO){
+    var seleccion: Int
+    var str: String
+    var cliente=ClienteFuncionalidad()
+    do {
+        println("¿Qué deseas hacer con el cliente?")
+        println("1. Añadir un cliente")
+        println("2. Eliminar un cliente")
+        println("3. Ver la lista de clientes")
+        println("4. Buscar un cliente")
+
+        str = readln()
+        seleccion =
+            try {
+                str.toInt()
+            } catch (e: Exception) {
+                -1
+            }
+        when(seleccion) {
+            1 -> cliente.aniadirCliente(clienteDAO)
+            2 -> cliente.eliminarCliente(clienteDAO)
+            3 -> cliente.verClientes(clienteDAO)
+            4 -> cliente.buscarCliente(clienteDAO)
+
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
 }
