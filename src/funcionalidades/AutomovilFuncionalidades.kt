@@ -56,17 +56,34 @@ class AutomovilFuncionalidades {
     }
 
     fun obtenerAutomovilesPorRangoDePrecio(){
-        println("Inserta el rango inferior")
-        val limiteInferior=readln().toDouble()
-
-        println("Inserta el rango superior")
-        val limiteSuperior=readln().toDouble()
-
+        var limiteInferior=0.0
+        var limiteSuperior=0.0
+        val pair = comprobarRangoDePrecios(limiteInferior, limiteSuperior)
+        limiteInferior = pair.first
+        limiteSuperior = pair.second
 
         val automoviles=automovilDAO.obtenerAutomovilPorRangoDePrecio(limiteInferior,limiteSuperior)
 
         comprobarExistenciaAutomoviles(automoviles)
 
+    }
+
+    private fun comprobarRangoDePrecios(limiteInferior: Double, limiteSuperior: Double): Pair<Double, Double> {
+        var limiteInferior1 = limiteInferior
+        var limiteSuperior1 = limiteSuperior
+        do {
+            println("Inserta el rango inferior")
+            limiteInferior1 = readln().toDouble()
+
+            println("Inserta el rango superior")
+            limiteSuperior1 = readln().toDouble()
+
+            if (limiteInferior1 > limiteSuperior1) {
+                println("El precio inferior es mayor que el superior")
+            }
+
+        } while (limiteInferior1 > limiteSuperior1)
+        return Pair(limiteInferior1, limiteSuperior1)
     }
 
     fun obtenerAutomovilesPorMarca(){
