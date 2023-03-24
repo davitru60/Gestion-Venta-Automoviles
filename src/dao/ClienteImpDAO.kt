@@ -4,6 +4,7 @@ import conexion.ConexionBD
 import no_dao.Cliente
 
 class ClienteImpDAO : IClienteDAO {
+    private val conexionBD = ConexionBD()
     override fun aniadirCliente(cliente:Cliente) {
         val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);"
         val conn = ConexionBD()
