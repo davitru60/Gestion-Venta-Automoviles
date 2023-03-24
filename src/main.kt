@@ -125,7 +125,6 @@ private fun eliminarCliente(clienteDAO: ClienteImpDAO) {
     println("Dime la id del cliente que desea eliminar")
     id= readln().toInt()
     val eliminarCliente= clienteDAO.eliminarCliente(id)
-    eliminarCliente
 }
 
 private fun aniadirCliente(clienteDAO: ClienteImpDAO) {
@@ -142,7 +141,7 @@ private fun aniadirCliente(clienteDAO: ClienteImpDAO) {
     println("Dime el telefono del cliente")
     telefono= readln().toInt()
     val aniadirCliente= clienteDAO.aniadirCliente(Cliente(nombre, apellido, email, telefono))
-    aniadirCliente
+
 }
 
 fun menuVentas(){
