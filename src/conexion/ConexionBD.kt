@@ -21,7 +21,6 @@ class ConexionBD {
         }catch (e:ClassNotFoundException){
             e.printStackTrace()
         }
-
     }
 
     fun desconectar(){

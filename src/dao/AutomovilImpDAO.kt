@@ -1,6 +1,7 @@
 package dao
 import conexion.ConexionBD
 import no_dao.Automovil
+import no_dao.ConstantesBDAutomovil
 
 class AutomovilImpDAO:IAutomovilDAO {
     private val conexionBD = ConexionBD()
@@ -72,15 +73,14 @@ class AutomovilImpDAO:IAutomovilDAO {
             preparedStatement?.setDouble(2,limiteSuperior)
             val resultSet=preparedStatement?.executeQuery()
             while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt("id"),resultSet.getString("marca"),resultSet.getString("modelo"),
-                    resultSet.getInt("ano"),resultSet.getString("color"),resultSet.getDouble("precio"))
+                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
+                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
                 automoviles.add(automovil)
             }
             preparedStatement?.close()
             conexionBD.desconectar()
 
             return automoviles
-
 
         }catch(e:Exception){
             println("Algo no fue bien")
@@ -98,8 +98,8 @@ class AutomovilImpDAO:IAutomovilDAO {
             preparedStatement?.setString(1,marca)
             val resultSet=preparedStatement?.executeQuery()
             while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt("id"),resultSet.getString("marca"),resultSet.getString("modelo"),
-                    resultSet.getInt("ano"),resultSet.getString("color"),resultSet.getDouble("precio"))
+                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
+                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
                 automoviles.add(automovil)
             }
 
@@ -118,8 +118,8 @@ class AutomovilImpDAO:IAutomovilDAO {
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
             val resultSet=preparedStatement?.executeQuery()
             while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt("id"),resultSet.getString("marca"),resultSet.getString("modelo"),
-                    resultSet.getInt("ano"),resultSet.getString("color"),resultSet.getDouble("precio"))
+                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
+                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
                 automoviles.add(automovil)
             }
 
@@ -135,17 +135,19 @@ class AutomovilImpDAO:IAutomovilDAO {
         var ejecucionConsulta:Int
         var resultado:Int?=1
         try{
+            //Eliminar el registro
             val consulta="DELETE FROM AUTOMOVILES WHERE ID=?"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
             preparedStatement?.setInt(1,id)
 
             resultado=preparedStatement?.executeUpdate()
             ejecucionConsulta=1
-
             preparedStatement?.close()
+
             conexionBD.desconectar()
 
         }catch(e:Exception){
+            println("Error al eliminar el automovil:${e.message}")
             ejecucionConsulta=0
             conexionBD.desconectar()
         }
