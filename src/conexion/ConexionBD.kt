@@ -1,9 +1,6 @@
 package conexion
 
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.PreparedStatement
-import java.sql.SQLException
+import java.sql.*
 
 class ConexionBD {
     private val url = "jdbc:mysql://localhost/automoviles"
@@ -33,5 +30,9 @@ class ConexionBD {
 
     fun getPreparedStatement(sql: String): PreparedStatement? {
         return conex?.prepareStatement(sql)
+    }
+
+    fun getStatement(): Statement? {
+        return conex?.createStatement()
     }
 }
