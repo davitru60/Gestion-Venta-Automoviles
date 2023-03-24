@@ -129,7 +129,7 @@ class AutomovilImpDAO:IAutomovilDAO {
         }
         return null
     }
-0
+
     override fun eliminarAutomovil(id: Int): Boolean {
         conexionBD.conectar()
         var ejecucionConsulta:Int
