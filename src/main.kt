@@ -121,6 +121,7 @@ val ventaDAO = VentaImpDAO()
 
 fun menuVentas(){
     var s:Int=0
+    var venta=MenuVentas()
     println()
     println("¿Qué opción de venta desea?")
     println("1. Insertar ventas")
@@ -134,11 +135,11 @@ fun menuVentas(){
         println("ERROR: La opción introducida es incorrecta")
     }
     when (s){
-        1->InsertarListaVentas()
-        2->ObtenerVentaMedianteID()
-        3->ObtenerTodasLasVentas()
-        4->ActualizarVentas()
-        5->BorrarVenta()
+        1->venta.insertarListaVentas()
+        2->venta.obtenerVentaMedianteID()
+        3->venta.obtenerTodasLasVentas()
+        4->venta.actualizarVentas()
+        5->venta.borrarVenta()
     }
 }
 
