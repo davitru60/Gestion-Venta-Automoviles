@@ -1,10 +1,12 @@
-package no_dao
+package funcionalidades
 
 import dao.AutomovilImpDAO
+import no_dao.Automovil
 import java.lang.NumberFormatException
 
 class AutomovilFuncionalidades {
-    fun insertarAutomovil(automovilDAO: AutomovilImpDAO){
+    private val automovilDAO=AutomovilImpDAO()
+    fun insertarAutomovil(){
         var marca:String
         val regex = Regex("[a-zA-Z]{2,}")
 
@@ -38,7 +40,7 @@ class AutomovilFuncionalidades {
         val color = readln()
 
         println("Inserta el precio")
-        var precio = readln().toDouble()
+        val precio = readln().toDouble()
 
         val nuevoAutomovil= Automovil(marca, modelo, anio, color, precio)
 
@@ -53,7 +55,7 @@ class AutomovilFuncionalidades {
         }
     }
 
-    fun obtenerAutomovilesPorRangoDePrecio(automovilDAO: AutomovilImpDAO){
+    fun obtenerAutomovilesPorRangoDePrecio(){
         println("Inserta el rango inferior")
         val limiteInferior=readln().toDouble()
 
@@ -67,7 +69,7 @@ class AutomovilFuncionalidades {
 
     }
 
-    fun obtenerAutomovilesPorMarca(automovilDAO: AutomovilImpDAO){
+    fun obtenerAutomovilesPorMarca(){
         println("Inserta marca")
         val marca= readln()
         val automoviles=automovilDAO.obtenerAutomovilesPorMarca(marca)
@@ -85,12 +87,12 @@ class AutomovilFuncionalidades {
         }
     }
 
-    fun obtenerTodosLosAutomoviles(automovilDAO: AutomovilImpDAO){
+    fun obtenerTodosLosAutomoviles(){
         val automoviles=automovilDAO.obtenerTodosLosAutomoviles()
         comprobarExistenciaAutomoviles(automoviles)
     }
 
-    fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
+    fun actualizarPrecioAutomovil(){
         var eleccionAutomovil=0
         var precioAutomovil=0.0
         println("Vehiculos disponibles")
@@ -115,7 +117,7 @@ class AutomovilFuncionalidades {
 
 
         }catch(e: NumberFormatException){
-            actualizarPrecioAutomovil(automovilDAO)
+            actualizarPrecioAutomovil()
         }
     }
 
@@ -127,11 +129,11 @@ class AutomovilFuncionalidades {
         }
     }
 
-    fun eliminarAutomovil(automovilDAO: AutomovilImpDAO){
+    fun eliminarAutomovil(){
         var eleccion=0
         println("Vehiculos disponibles")
 
-        obtenerTodosLosAutomoviles(automovilDAO)
+        obtenerTodosLosAutomoviles()
 
         try{
             println("¿Que vehiculo deseas eliminar? (Debes elegir un codigo)")
@@ -139,7 +141,7 @@ class AutomovilFuncionalidades {
             comprobarEliminacionAutomovil(automovilDAO, eleccion)
 
         }catch(e: NumberFormatException){
-            eliminarAutomovil(automovilDAO)
+            eliminarAutomovil()
         }
     }
 

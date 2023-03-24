@@ -1,11 +1,12 @@
+package funcionalidades
+
+import dao.VentaImpDAO
 import no_dao.Venta
 
-class MenuVentas {
-
+class VentasFuncionalidades {
+    private val ventaDAO= VentaImpDAO()
     fun borrarVenta() {
-
         var id: Int = 0
-
         println("Introduce el ID:")
         try {
             id = readln().toInt()
