@@ -1,5 +1,3 @@
-import conexion.ConexionBD
-import dao.AutomovilImpDAO
 import dao.ClienteImpDAO
 import funcionalidades.VentasFuncionalidades
 import funcionalidades.AutomovilFuncionalidades
@@ -30,7 +28,7 @@ fun menuGeneral(){
 
         when(seleccion) {
             1 -> menuAutomoviles()
-            2 -> menuClientes(clienteDAO)
+            2 -> menuClientes()
             3 -> menuVentas()
             4 -> break
 
@@ -40,7 +38,6 @@ fun menuGeneral(){
 }
 
 fun menuAutomoviles() {
-    val automovilDAO=AutomovilImpDAO()
     val automovilFuncionalidades = AutomovilFuncionalidades()
     var seleccion: Int
     var str: String
@@ -76,7 +73,7 @@ fun menuAutomoviles() {
 
 fun menuVentas(){
     var s:Int=0
-    var venta= VentasFuncionalidades()
+    val venta= VentasFuncionalidades()
     println()
     println("¿Qué opción de venta desea?")
     println("1. Insertar ventas")
@@ -98,7 +95,7 @@ fun menuVentas(){
     }
 }
 
-fun menuClientes(clienteDAO: ClienteImpDAO){
+fun menuClientes(){
     var seleccion: Int
     var str: String
     val cliente= ClienteFuncionalidades()
