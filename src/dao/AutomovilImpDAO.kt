@@ -135,7 +135,6 @@ class AutomovilImpDAO:IAutomovilDAO {
         var ejecucionConsulta:Int
         var resultado:Int?=1
         try{
-
             //Eliminar el registro
             val consulta="DELETE FROM AUTOMOVILES WHERE ID=?"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)

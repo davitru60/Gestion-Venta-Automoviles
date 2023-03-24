@@ -4,7 +4,7 @@ import no_dao.Automovil
 import java.lang.NumberFormatException
 
 fun main(){
-    var conexion= ConexionBD()
+    val conexion= ConexionBD()
     val automovilDAO=AutomovilImpDAO()
 
     if(conexion !=null){
@@ -87,44 +87,40 @@ fun menuVentas(){
 
 /*Automovil*/
 fun insertarAutomovil(automovilDAO: AutomovilImpDAO){
-    var marca=""
-    var modelo=""
-    var anio=0
-    var color=""
-    var precio=0.0
+    var marca:String
     val regex = Regex("[a-zA-Z]{2,}")
 
     println("Inserta la marca")
-     marca= readln().toString()
+     marca= readln()
      do{
          if(!regex.matches(marca)){
              println("Marca inválida. Inserta la marca nuevamente")
-             marca= readln().toString()
+             marca= readln()
          }
 
      }while(!regex.matches(marca))
 
 
      println("Inserta el modelo")
-     modelo=readln().toString()
+     val modelo  = readln()
 
     do{
         if(!regex.matches(marca)){
             println("Modelo inválido. Inserta el modelo nuevamente")
-            marca= readln().toString()
+            marca= readln()
         }
 
     }while(!regex.matches(marca))
 
 
-     println("Inserta el año")
-     anio=readln().toInt()
+    println("Inserta el año")
+    val anio = readln().toInt()
 
      println("Inserta el color")
-     color=readln().toString()
+    val color = readln()
 
      println("Inserta el precio")
-     precio=readln().toDouble()
+    var precio = readln().toDouble()
 
     val nuevoAutomovil= Automovil(marca,modelo,anio,color,precio)
 
@@ -141,69 +137,58 @@ fun comprobarInsercionAutomovil(automovilDAO: AutomovilImpDAO, nuevoAutomovil: A
 
 fun obtenerAutomovilesPorRangoDePrecio(automovilDAO: AutomovilImpDAO){
     println("Inserta el rango inferior")
-    var limiteInferior=readln().toDouble()
+    val limiteInferior=readln().toDouble()
 
     println("Inserta el rango superior")
-    var limiteSuperior=readln().toDouble()
+    val limiteSuperior=readln().toDouble()
 
 
-    var automoviles=automovilDAO.obtenerAutomovilPorRangoDePrecio(limiteInferior,limiteSuperior)
+    val automoviles=automovilDAO.obtenerAutomovilPorRangoDePrecio(limiteInferior,limiteSuperior)
 
-    if (automoviles != null) {
-        for(automovil in automoviles){
-            println(automovil)
-        }
-    }else{
-        println("Se ha producido un error en la obtencion de los vehiculos")
-    }
+    comprobarExistenciaAutomoviles(automoviles)
 
 }
 
 fun obtenerAutomovilesPorMarca(automovilDAO: AutomovilImpDAO){
     println("Inserta marca")
-    var marca=readln().toString()
-    var automoviles=automovilDAO.obtenerAutomovilesPorMarca(marca)
+    val marca= readln()
+    val automoviles=automovilDAO.obtenerAutomovilesPorMarca(marca)
+    comprobarExistenciaAutomoviles(automoviles)
 
+}
+
+fun comprobarExistenciaAutomoviles(automoviles: ArrayList<Automovil>?) {
     if (automoviles != null) {
-        for(automovil in automoviles){
+        for (automovil in automoviles) {
             println(automovil)
         }
-    }else{
+    } else {
         println("Se ha producido un error en la obtencion de los vehiculos")
     }
-
 }
 
 fun obtenerTodosLosAutomoviles(automovilDAO: AutomovilImpDAO){
-    var automoviles=automovilDAO.obtenerTodosLosAutomoviles()
-    if (automoviles != null) {
-        for(automovil in automoviles){
-            println(automovil)
-        }
-    }
+    val automoviles=automovilDAO.obtenerTodosLosAutomoviles()
+    comprobarExistenciaAutomoviles(automoviles)
 }
 fun actualizarPrecioAutomovil(automovilDAO: AutomovilImpDAO){
-    var eleccion=0
-    var precio=0.0
+    var eleccionAutomovil=0
+    var precioAutomovil=0.0
     println("Vehiculos disponibles")
 
-    var automoviles=automovilDAO.obtenerTodosLosAutomoviles()
-    if (automoviles != null) {
-        for(automovil in automoviles){
-            println(automovil)
-        }
-    }
+    val automoviles=automovilDAO.obtenerTodosLosAutomoviles()
+    comprobarExistenciaAutomoviles(automoviles)
 
     try{
         println("¿Que vehiculo deseas actualizar?")
-        eleccion=readln().toInt()
-        var automovilElegido= automoviles!![eleccion]
+        eleccionAutomovil=readln().toInt()
+        var automovilElegido= automoviles!![eleccionAutomovil]
 
         println("Introduce el nuevo precio")
-        precio=readln().toDouble()
+        precioAutomovil=readln().toDouble()
 
         automovilElegido= Automovil(automovilElegido.id,automovilElegido.marca,automovilElegido.modelo,
-            automovilElegido.ano,automovilElegido.color,precio)
+            automovilElegido.ano,automovilElegido.color,precioAutomovil)
 
         comprobarActualizacionPrecioAutomovil(automovilDAO, automovilElegido)
 
