@@ -1,7 +1,9 @@
 import conexion.ConexionBD
 import dao.AutomovilImpDAO
+import dao.ClienteImpDAO
 import dao.VentaImpDAO
 import no_dao.Automovil
+import no_dao.Cliente
 import no_dao.Venta
 import java.lang.NumberFormatException
 
@@ -52,9 +54,69 @@ fun menuAutomoviles(automovilDAO: AutomovilImpDAO){
 
 
 }
+fun menuClientes(clienteDAO: ClienteImpDAO){
+    var seleccion: Int
+    var str: String
+    do {
+        println("¿Qué deseas hacer con el cliente?")
+        println("1. Añadir un cliente")
+        println("2. Eliminar un cliente")
+        println("3. Ver la lista de clientes")
+        println("4. Buscar un cliente")
 
-fun menuClientes(automovilDAO: AutomovilImpDAO){
+        str = readln()
+        seleccion =
+            try {
+                str.toInt()
+            } catch (e: Exception) {
+                -1
+            }
+        when(seleccion) {
+            1 -> aniadirCliente(clienteDAO)
+            2 -> eliminarCliente(clienteDAO)
+            3 -> verClientes(clienteDAO)
+            4 -> buscarCliente(clienteDAO)
 
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
+}
+
+private fun buscarCliente(clienteDAO: ClienteImpDAO) {
+    var id:Int
+    println("Dime la id del cliente que desea buscar")
+    id= readln().toInt()
+    val buscarCliente= clienteDAO.buscarCliente(id)
+}
+
+private fun verClientes(clienteDAO: ClienteImpDAO):List<Cliente> {
+    val verCliente= clienteDAO.verListaCliente()
+    return verCliente
+}
+
+private fun eliminarCliente(clienteDAO: ClienteImpDAO) {
+    var id:Int
+    println("Dime la id del cliente que desea eliminar")
+    id= readln().toInt()
+    val eliminarCliente= clienteDAO.eliminarCliente(id)
+    eliminarCliente
+}
+
+private fun aniadirCliente(clienteDAO: ClienteImpDAO) {
+    var nombre:String
+    var apellido:String
+    var email:String
+    var telefono:Int
+    println("Dime el nombre del cliente")
+    nombre= readln()
+    println("Dime el apellido del cliente")
+    apellido= readln()
+    println("Dime el email del cliente")
+    email= readln()
+    println("Dime el telefono del cliente")
+    telefono= readln().toInt()
+    val aniadirCliente= clienteDAO.aniadirCliente(Cliente(nombre, apellido, email, telefono))
+    aniadirCliente
 }
 
 val ventaDAO = VentaImpDAO()
