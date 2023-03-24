@@ -17,18 +17,18 @@ class VentaImpDAO: IVentaDAO {
         ps = conexion.getPreparedStatement(query)
         for (i in v) {
             try {
-                ps?.setInt(2, i.automovil_id)
-                ps?.setInt(3, i.cliente_id)
-                ps?.setString(4, i.fecha)
-                ps?.setDouble(5, i.precio_venta)
+                ps?.setInt(1, i.automovil_id)
+                ps?.setInt(2, i.cliente_id)
+                ps?.setString(3, i.fecha)
+                ps?.setDouble(4, i.precio_venta)
                 result = ps?.executeUpdate()
             } catch (e: Exception) {
 
             } finally {
                 ps?.close()
-                conexion.desconectar()
             }
         }
+
         return v
     }
 
