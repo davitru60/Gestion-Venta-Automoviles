@@ -2,6 +2,13 @@ package conexion
 
 import java.sql.*
 
+/**
+ * Constructor de la clase Documento.
+ * @param fechi La fecha de publicacion del documento.
+ * @param titu El titulo del documento.
+ * @param valor El valor del documento.
+ */
+
 class ConexionBD {
     private val url = "jdbc:mysql://localhost/automoviles"
     private val driver = "com.mysql.cj.jdbc.Driver"
