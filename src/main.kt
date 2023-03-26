@@ -1,60 +1,12 @@
-import conexion.ConexionBD
-import dao.AutomovilImpDAO
-import dao.ClienteImpDAO
-import dao.VentaImpDAO
-import no_dao.Automovil
-import no_dao.Venta
-import java.lang.NumberFormatException
+import funcionalidades.VentasFuncionalidades
+import funcionalidades.AutomovilFuncionalidades
+import funcionalidades.ClienteFuncionalidades
 
 fun main(){
-    var conexion= ConexionBD()
-    val automovilDAO=AutomovilImpDAO()
-    val clienteDAO=ClienteImpDAO()
-
-    if(conexion !=null){
-        println("Conectado con exito")
-        menuGeneral(automovilDAO,clienteDAO)
-    }else{
-        println("Error al conectar")
-    }
-
-
+    menuGeneral()
 }
 
-
-
-fun menuClientes(clienteDAO: ClienteImpDAO){
-    var seleccion: Int
-    var str: String
-    var cliente=ClienteFuncionalidad()
-    do {
-        println("¿Qué deseas hacer con el cliente?")
-        println("1. Añadir un cliente")
-        println("2. Eliminar un cliente")
-        println("3. Ver la lista de clientes")
-        println("4. Buscar un cliente")
-
-        str = readln()
-        seleccion =
-            try {
-                str.toInt()
-            } catch (e: Exception) {
-                -1
-            }
-        when(seleccion) {
-            1 -> cliente.aniadirCliente(clienteDAO)
-            2 -> cliente.eliminarCliente(clienteDAO)
-            3 -> cliente.verClientes(clienteDAO)
-            4 -> cliente.buscarCliente(clienteDAO)
-
-            else -> println("Opcion incorrecta")
-        }
-    } while (seleccion != 0)
-}
-
-
-
-fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO){
+fun menuGeneral(){
     var seleccion: Int
     var str: String
     do {
@@ -71,9 +23,10 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO){
             } catch (e: Exception) {
                 -1
             }
+
         when(seleccion) {
-            1 -> menuAutomoviles(automovilDAO)
-            2 -> menuClientes(clienteDAO)
+            1 -> menuAutomoviles()
+            2 -> menuClientes()
             3 -> menuVentas()
             4 -> break
 
@@ -81,3 +34,102 @@ fun menuGeneral(automovilDAO: AutomovilImpDAO,clienteDAO: ClienteImpDAO){
         }
     } while (seleccion != 0)
 }
+
+fun menuAutomoviles() {
+    val automovilFuncionalidades = AutomovilFuncionalidades()
+    var seleccion=0
+    var str: String
+    do {
+        println()
+        println("¿Qué deseas hacer?")
+        println("1. Insertar automovil")
+        println("2. Obtener automoviles por rango de precios")
+        println("3. Obtener automovil por marca")
+        println("4. Obtener todos los automoviles")
+        println("5. Actualizar precio de un automovil")
+        println("6. Eliminar automovil")
+        println("7. Volver al menu inicial")
+
+        str = readln()
+        seleccion=comprobarSeleccionMenu(seleccion,str)
+
+        when (seleccion) {
+            1 -> automovilFuncionalidades.insertarAutomovil()
+            2 -> automovilFuncionalidades.obtenerAutomovilesPorRangoDePrecio()
+            3 -> automovilFuncionalidades.obtenerAutomovilesPorMarca()
+            4 -> automovilFuncionalidades.obtenerTodosLosAutomoviles()
+            5 -> automovilFuncionalidades.actualizarPrecioAutomovil()
+            6 -> automovilFuncionalidades.eliminarAutomovil()
+            7 -> menuGeneral()
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
+
+}
+
+fun menuClientes(){
+    var seleccion=0
+    var str: String
+    val cliente= ClienteFuncionalidades()
+    do {
+        println("¿Qué deseas hacer con el cliente?")
+        println("1. Añadir un cliente")
+        println("2. Eliminar un cliente")
+        println("3. Ver la lista de clientes")
+        println("4. Buscar un cliente")
+        println("5. Volver al menu inicial")
+
+        str = readln()
+        seleccion = comprobarSeleccionMenu(seleccion, str)
+        when(seleccion) {
+            1 -> cliente.aniadirCliente()
+            2 -> cliente.eliminarCliente()
+            3 -> cliente.verClientes()
+            4 -> cliente.buscarCliente()
+            5 -> menuGeneral()
+
+            else -> println("Opcion incorrecta")
+        }
+    } while (seleccion != 0)
+}
+
+fun menuVentas(){
+    val venta= VentasFuncionalidades()
+    var seleccion =0
+    var str: String
+
+    do{
+        println()
+        println("¿Qué opción de venta desea?")
+        println("1. Insertar ventas")
+        println("2. Obtener los datos de alguna venta.")
+        println("3. Obtener los datos de todas las ventas")
+        println("4. Actualizar una venta.")
+        println("5. Borrar una venta")
+        println("6. Volver al menu inicial")
+
+        str = readln()
+        seleccion=comprobarSeleccionMenu(seleccion,str)
+
+        when (seleccion){
+            1->venta.insertarListaVentas()
+            2->venta.obtenerVentaMedianteID()
+            3->venta.obtenerTodasLasVentas()
+            4->venta.actualizarVentas()
+            5->venta.borrarVenta()
+            6 -> menuGeneral()
+        }
+
+    }while(seleccion !=0)
+
+}
+
+
+private fun comprobarSeleccionMenu(seleccion: Int, str: String): Int {
+    val seleccion1: Int = try {
+        str.toInt()
+    } catch (e: Exception) {
+        -1
+    }
+    return seleccion1
+}º
