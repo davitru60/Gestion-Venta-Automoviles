@@ -132,4 +132,4 @@ private fun comprobarSeleccionMenu(seleccion: Int, str: String): Int {
         -1
     }
     return seleccion1
-}º
+}
