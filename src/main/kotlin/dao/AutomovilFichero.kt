@@ -1,13 +1,21 @@
 package dao
 
 import no_dao.Automovil
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
 import java.io.IOException
 
+/**
+ * Esta clase proporciona una funcionalidad para leer un archivo de automóviles y
+ * almacenar los datos en una lista de objetos Automovil.
+ */
 class AutomovilFichero {
 
+    /**
+     * Lee un archivo de automóviles y devuelve una lista de objetos Automovil.
+     *
+     * @param ruta la ruta del archivo que se va a leer
+     * @return una lista de objetos Automovil
+     */
     fun leerArchivoAutomovil(ruta:String):ArrayList<Automovil>{
         val automoviles=ArrayList<Automovil>()
         try{

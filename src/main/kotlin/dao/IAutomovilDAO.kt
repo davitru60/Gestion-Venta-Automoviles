@@ -1,6 +1,9 @@
 package dao
 import no_dao.Automovil
 
+/**
+ * Interfaz que define los métodos para realizar operaciones CRUD en la base de datos de Automóviles.
+ */
 interface IAutomovilDAO {
     fun insertarAutomovil(automovil: Automovil):Boolean
     fun actualizarPrecioAutomovil(automovil:Automovil):Boolean

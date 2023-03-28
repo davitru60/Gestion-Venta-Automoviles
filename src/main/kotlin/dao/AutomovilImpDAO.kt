@@ -4,9 +4,20 @@ import conexionBD.ConstantesBD
 import no_dao.Automovil
 import no_dao.ConstantesBDAutomovil
 
+/**
+ * Esta clase implementa la interfaz IAutomovilDAO y proporciona la funcionalidad
+ * para acceder a los datos de los automóviles en la capa de persistencia o capa de datos.
+ */
 class AutomovilImpDAO:IAutomovilDAO {
     private val conexionBD = ConexionBD(ConstantesBD.URL,ConstantesBD.USUARIO,ConstantesBD.CONTRASENIA)
 
+
+    /**
+     * Inserta un objeto Automovil en la base de datos.
+     *
+     * @param automovil el objeto Automovil que se va a insertar
+     * @return true si se ha insertado correctamente, false en caso contrario
+     */
     override fun insertarAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
         var ejecucionConsulta:Int
@@ -36,7 +47,12 @@ class AutomovilImpDAO:IAutomovilDAO {
         return resultado==ejecucionConsulta
     }
 
-
+    /**
+     * Actualiza el precio de un objeto Automovil en la base de datos.
+     *
+     * @param automovil el objeto Automovil cuyo precio se va a actualizar
+     * @return true si se ha actualizado correctamente, false en caso contrario
+     */
     override fun actualizarPrecioAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
         var ejecucionConsulta:Int
@@ -64,6 +80,12 @@ class AutomovilImpDAO:IAutomovilDAO {
         return resultado==ejecucionConsulta
     }
 
+    /**
+     * Comprueba si existe un registro en la tabla AUTOMOVILES de la base de datos con el ID especificado.
+     *
+     * @param id el ID del registro a comprobar
+     * @return el número de registros encontrados con el ID especificado (debería ser 0 o 1)
+     */
     fun comprobarExistenciaDelRegistroPorID(id:Int):Int{
         val consultaExistencia = "SELECT COUNT(*) FROM AUTOMOVILES WHERE ID=?"
         val preparedStatementExistencia = conexionBD.getPreparedStatement(consultaExistencia)
@@ -75,12 +97,18 @@ class AutomovilImpDAO:IAutomovilDAO {
     }
 
 
-
+    /**
+     * Obtiene una lista de objetos Automovil cuyo precio se encuentra dentro de un rango específico.
+     *
+     * @param limiteInferior el límite inferior del rango de precios.
+     * @param limiteSuperior el límite superior del rango de precios.
+     * @return una lista de objetos Automovil cuyo precio se encuentra dentro del rango especificado, o null si se produce un error.
+     */
     override fun obtenerAutomovilPorRangoDePrecio(limiteInferior: Double, limiteSuperior: Double): ArrayList<Automovil>? {
         conexionBD.conectar()
         val automoviles=ArrayList<Automovil>()
         try{
-            val consulta="SELECT * FROM AUTOMOVILES WHERE PRECIO BETWEEN ? AND ? "
+            val consulta="SELECT * FROM AUTOMOVILES WHERE PRECIO BETWEEN ? AND ? ORDER BY PRICE"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
             preparedStatement?.setDouble(1,limiteInferior)
             preparedStatement?.setDouble(2,limiteSuperior)
@@ -102,6 +130,12 @@ class AutomovilImpDAO:IAutomovilDAO {
         return null
     }
 
+    /**
+     * Obtiene una lista de automóviles por marca desde la base de datos.
+     *
+     * @param marca la marca de los automóviles a buscar
+     * @return una lista de automóviles que pertenecen a la marca especificada
+     */
     override fun obtenerAutomovilesPorMarca(marca: String): ArrayList<Automovil>? {
         conexionBD.conectar()
         val automoviles=ArrayList<Automovil>()
@@ -123,6 +157,11 @@ class AutomovilImpDAO:IAutomovilDAO {
         return null
     }
 
+    /**
+     * Obtiene todos los automóviles almacenados en la base de datos.
+     * @return Un ArrayList de objetos Automovil que contiene todos los automóviles almacenados en la base de datos.
+     *         Si no se pueden obtener los automóviles, se devuelve null.
+     */
     override fun obtenerTodosLosAutomoviles(): ArrayList<Automovil>? {
         conexionBD.conectar()
         val automoviles=ArrayList<Automovil>()
@@ -143,6 +182,11 @@ class AutomovilImpDAO:IAutomovilDAO {
         return null
     }
 
+    /**
+     * Elimina un automóvil de la base de datos a partir de su ID.
+     * @param id El ID del automóvil a eliminar.
+     * @return true si el automóvil fue eliminado exitosamente, false si ocurrió algún error.
+     */
     override fun eliminarAutomovil(id: Int): Boolean {
         conexionBD.conectar()
         var ejecucionConsulta:Int
