@@ -1,10 +1,11 @@
 package dao
-import conexion.ConexionBD
+import conexionBD.ConexionBD
+import conexionBD.ConstantesBD
 import no_dao.Automovil
 import no_dao.ConstantesBDAutomovil
 
 class AutomovilImpDAO:IAutomovilDAO {
-    private val conexionBD = ConexionBD()
+    private val conexionBD = ConexionBD(ConstantesBD.URL,ConstantesBD.USUARIO,ConstantesBD.CONTRASENIA)
 
     override fun insertarAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
@@ -65,7 +66,7 @@ class AutomovilImpDAO:IAutomovilDAO {
 
     override fun obtenerAutomovilPorRangoDePrecio(limiteInferior: Double, limiteSuperior: Double): ArrayList<Automovil>? {
         conexionBD.conectar()
-        var automoviles=ArrayList<Automovil>()
+        val automoviles=ArrayList<Automovil>()
         try{
             val consulta="SELECT * FROM AUTOMOVILES WHERE PRECIO BETWEEN ? AND ? "
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
@@ -91,7 +92,7 @@ class AutomovilImpDAO:IAutomovilDAO {
 
     override fun obtenerAutomovilesPorMarca(marca: String): ArrayList<Automovil>? {
         conexionBD.conectar()
-        var automoviles=ArrayList<Automovil>()
+        val automoviles=ArrayList<Automovil>()
         try{
             val consulta="SELECT * FROM AUTOMOVILES WHERE marca=?"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)
@@ -112,7 +113,7 @@ class AutomovilImpDAO:IAutomovilDAO {
 
     override fun obtenerTodosLosAutomoviles(): ArrayList<Automovil>? {
         conexionBD.conectar()
-        var automoviles=ArrayList<Automovil>()
+        val automoviles=ArrayList<Automovil>()
         try{
             val consulta="SELECT * FROM AUTOMOVILES"
             val preparedStatement=conexionBD.getPreparedStatement(consulta)

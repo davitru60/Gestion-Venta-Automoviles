@@ -51,7 +51,7 @@ fun menuAutomoviles() {
         println("7. Volver al menu inicial")
 
         str = readln()
-        seleccion=comprobarSeleccionMenu(seleccion,str)
+        seleccion=comprobarSeleccionMenu(str)
 
         when (seleccion) {
             1 -> automovilFuncionalidades.insertarAutomovil()
@@ -80,7 +80,7 @@ fun menuClientes(){
         println("5. Volver al menu inicial")
 
         str = readln()
-        seleccion = comprobarSeleccionMenu(seleccion, str)
+        seleccion = comprobarSeleccionMenu(str)
         when(seleccion) {
             1 -> cliente.aniadirCliente()
             2 -> cliente.eliminarCliente()
@@ -109,7 +109,7 @@ fun menuVentas(){
         println("6. Volver al menu inicial")
 
         str = readln()
-        seleccion=comprobarSeleccionMenu(seleccion,str)
+        seleccion=comprobarSeleccionMenu(str)
 
         when (seleccion){
             1->venta.insertarListaVentas()
@@ -125,7 +125,7 @@ fun menuVentas(){
 }
 
 
-private fun comprobarSeleccionMenu(seleccion: Int, str: String): Int {
+private fun comprobarSeleccionMenu(str: String): Int {
     val seleccion1: Int = try {
         str.toInt()
     } catch (e: Exception) {

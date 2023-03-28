@@ -1,24 +1,25 @@
-package conexion
+package conexionBD
 
 import java.sql.*
 
-/**
- * Constructor de la clase Documento.
- * @param fechi La fecha de publicacion del documento.
- * @param titu El titulo del documento.
- * @param valor El valor del documento.
- */
+
 
 class ConexionBD {
-    private val url = "jdbc:mysql://localhost/automoviles"
-    private val driver = "com.mysql.cj.jdbc.Driver"
-    private val usuario = "root"
-    private val contrasenia = ""
-    var conex: Connection? = null
+    private var url = ""
+    private var usuario = ""
+    private var contrasenia = ""
+    private var conex: Connection? = null
+
+    constructor(url:String,usuario:String,contra:String){
+        this.url=url
+        this.usuario=usuario
+        this.contrasenia=contra
+
+    }
 
     fun conectar() {
         try{
-            Class.forName(driver)
+            Class.forName(ConstantesBD.DRIVER)
             conex= DriverManager.getConnection(url,usuario,contrasenia)
         }catch(e: SQLException){
             e.printStackTrace()

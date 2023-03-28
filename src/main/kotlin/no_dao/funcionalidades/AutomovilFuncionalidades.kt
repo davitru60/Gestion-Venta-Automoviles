@@ -3,6 +3,8 @@ package funcionalidades
 import dao.AutomovilImpDAO
 import no_dao.Automovil
 import java.lang.NumberFormatException
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AutomovilFuncionalidades {
     private val automovilDAO=AutomovilImpDAO()
@@ -11,7 +13,7 @@ class AutomovilFuncionalidades {
         val regex = Regex("[a-zA-Z]{2,}")
 
         println("Inserta la marca")
-        marca= readln()
+        marca= capitalizeWords(readLine()!!)
         do{
             if(!regex.matches(marca)){
                 println("Marca inválida. Inserta la marca nuevamente")
@@ -45,6 +47,20 @@ class AutomovilFuncionalidades {
         val nuevoAutomovil= Automovil(marca, modelo, anio, color, precio)
 
         comprobarInsercionAutomovil(automovilDAO, nuevoAutomovil)
+
+    }
+
+    private fun capitalizeWords(input: String): String {
+        val words = input.split(" ")
+        var capitalized = ""
+
+        for (word in words) {
+            val firstLetter = word.substring(0, 1).uppercase(Locale.getDefault())
+            val restOfWord = word.substring(1).lowercase(Locale.getDefault())
+            capitalized += "$firstLetter$restOfWord "
+        }
+
+        return capitalized.trim()
     }
 
     private fun comprobarInsercionAutomovil(automovilDAO: AutomovilImpDAO, nuevoAutomovil: Automovil) {
