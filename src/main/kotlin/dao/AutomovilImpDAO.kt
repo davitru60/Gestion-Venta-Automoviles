@@ -36,6 +36,7 @@ class AutomovilImpDAO:IAutomovilDAO {
         return resultado==ejecucionConsulta
     }
 
+
     override fun actualizarPrecioAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
         var ejecucionConsulta:Int
@@ -62,6 +63,17 @@ class AutomovilImpDAO:IAutomovilDAO {
 
         return resultado==ejecucionConsulta
     }
+
+    fun comprobarExistenciaDelRegistroPorID(id:Int):Int{
+        val consultaExistencia = "SELECT COUNT(*) FROM AUTOMOVILES WHERE ID=?"
+        val preparedStatementExistencia = conexionBD.getPreparedStatement(consultaExistencia)
+        preparedStatementExistencia?.setInt(1, id)
+        val resultSetExistencia = preparedStatementExistencia?.executeQuery()
+        resultSetExistencia?.next()
+        val countExistencia = resultSetExistencia?.getInt(1) ?: 0
+        return countExistencia
+    }
+
 
 
     override fun obtenerAutomovilPorRangoDePrecio(limiteInferior: Double, limiteSuperior: Double): ArrayList<Automovil>? {

@@ -20,4 +20,9 @@ class Cliente {
         this.telefono=telefono
     }
 
+    override fun toString(): String {
+        return "ID:$id, nombre:$nombre, apellido:$apellido, email:$email, telefono:$telefono"
+    }
+
+
 }

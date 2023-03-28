@@ -1,5 +1,5 @@
-package funcionalidades
-
+package no_dao.funcionalidades
+import dao.AutomovilFichero
 import dao.AutomovilImpDAO
 import no_dao.Automovil
 import java.lang.NumberFormatException
@@ -8,62 +8,15 @@ import kotlin.collections.ArrayList
 
 class AutomovilFuncionalidades {
     private val automovilDAO=AutomovilImpDAO()
-    fun insertarAutomovil(){
-        var marca:String
-        val regex = Regex("[a-zA-Z]{2,}")
+    fun insertarAutomovil(rutaFichero:String){
+        val automovilFichero=AutomovilFichero()
+        val automoviles=automovilFichero.leerArchivoAutomovil(rutaFichero)
 
-        println("Inserta la marca")
-        marca= capitalizeWords(readLine()!!)
-        do{
-            if(!regex.matches(marca)){
-                println("Marca inválida. Inserta la marca nuevamente")
-                marca= readln()
-            }
-
-        }while(!regex.matches(marca))
-
-
-        println("Inserta el modelo")
-        val modelo  = readln()
-
-        do{
-            if(!regex.matches(marca)){
-                println("Modelo inválido. Inserta el modelo nuevamente")
-                marca= readln()
-            }
-
-        }while(!regex.matches(marca))
-
-
-        println("Inserta el año")
-        val anio = readln().toInt()
-
-        println("Inserta el color")
-        val color = readln()
-
-        println("Inserta el precio")
-        val precio = readln().toDouble()
-
-        val nuevoAutomovil= Automovil(marca, modelo, anio, color, precio)
-
-        comprobarInsercionAutomovil(automovilDAO, nuevoAutomovil)
-
-    }
-
-    private fun capitalizeWords(input: String): String {
-        val words = input.split(" ")
-        var capitalized = ""
-
-        for (word in words) {
-            val firstLetter = word.substring(0, 1).uppercase(Locale.getDefault())
-            val restOfWord = word.substring(1).lowercase(Locale.getDefault())
-            capitalized += "$firstLetter$restOfWord "
+        for(nuevoAutomovil in automoviles){
+            comprobarInsercionAutomovil(nuevoAutomovil)
         }
-
-        return capitalized.trim()
     }
-
-    private fun comprobarInsercionAutomovil(automovilDAO: AutomovilImpDAO, nuevoAutomovil: Automovil) {
+    private fun comprobarInsercionAutomovil(nuevoAutomovil: Automovil) {
         if (automovilDAO.insertarAutomovil(nuevoAutomovil)) {
             println("Se insertó correctamente el automovil")
         } else {
@@ -128,33 +81,37 @@ class AutomovilFuncionalidades {
     fun actualizarPrecioAutomovil(){
         var eleccionAutomovil=0
         var precioAutomovil=0.0
+        var automovilExiste=0
         println("Vehiculos disponibles")
-
         val automoviles=automovilDAO.obtenerTodosLosAutomoviles()
         comprobarExistenciaAutomoviles(automoviles)
 
         try{
-            println("¿Que vehiculo deseas actualizar?")
-            eleccionAutomovil=readln().toInt()
-            var automovilElegido= automoviles!![eleccionAutomovil]
+            automovilExiste=automovilDAO.comprobarExistenciaDelRegistroPorID(eleccionAutomovil)
+            do{
+                println("¿Que vehiculo deseas actualizar?")
+                eleccionAutomovil=readln().toInt()
+
+                if(automovilExiste==0){
+                    println("Este registro no existe , escribe uno existente")
+                }
+            }while(automovilExiste==0)
 
             println("Introduce el nuevo precio")
             precioAutomovil=readln().toDouble()
 
-            automovilElegido= Automovil(
-                automovilElegido.id, automovilElegido.marca, automovilElegido.modelo,
-                automovilElegido.ano, automovilElegido.color, precioAutomovil
-            )
+            val automovilElegido= Automovil(eleccionAutomovil,precioAutomovil)
 
-            comprobarActualizacionPrecioAutomovil(automovilDAO, automovilElegido)
 
+            comprobarActualizacionPrecioAutomovil(automovilElegido)
 
         }catch(e: NumberFormatException){
+            println("Has introducido una letra en vez de un numero")
             actualizarPrecioAutomovil()
         }
     }
 
-    private fun comprobarActualizacionPrecioAutomovil(automovilDAO: AutomovilImpDAO, automovilElegido: Automovil) {
+    private fun comprobarActualizacionPrecioAutomovil(automovilElegido: Automovil) {
         if (automovilDAO.actualizarPrecioAutomovil(automovilElegido)) {
             println("Se actualizó correctamente el automovil")
         } else {
@@ -171,14 +128,14 @@ class AutomovilFuncionalidades {
         try{
             println("¿Que vehiculo deseas eliminar? (Debes elegir un codigo)")
             eleccion=readln().toInt()
-            comprobarEliminacionAutomovil(automovilDAO, eleccion)
+            comprobarEliminacionAutomovil(eleccion)
 
         }catch(e: NumberFormatException){
             eliminarAutomovil()
         }
     }
 
-    private fun comprobarEliminacionAutomovil(automovilDAO: AutomovilImpDAO, eleccion: Int) {
+    private fun comprobarEliminacionAutomovil(eleccion: Int) {
         if (automovilDAO.eliminarAutomovil(eleccion)) {
             println("Se eliminó correctamente el automovil")
         } else {

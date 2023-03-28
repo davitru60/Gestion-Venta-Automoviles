@@ -1,6 +1,5 @@
 package funcionalidades
 
-import dao.AutomovilImpDAO
 import dao.ClienteImpDAO
 import no_dao.Cliente
 class ClienteFuncionalidades{
@@ -10,11 +9,18 @@ class ClienteFuncionalidades{
         println("Dime la id del cliente que desea buscar")
         id = readln().toInt()
         val buscarCliente = clienteDAO.buscarCliente(id)
+
     }
 
-    fun verClientes(): List<Cliente> {
+    fun verClientes() {
         val verCliente = clienteDAO.verListaCliente()
-        return verCliente
+        comprobarExistenciaClientes(verCliente)
+    }
+
+    private fun comprobarExistenciaClientes(clientes: List<Cliente>) {
+        for (cliente in clientes) {
+            println(cliente)
+        }
     }
 
     fun eliminarCliente() {

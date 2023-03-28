@@ -1,5 +1,5 @@
 import funcionalidades.VentasFuncionalidades
-import funcionalidades.AutomovilFuncionalidades
+import no_dao.funcionalidades.AutomovilFuncionalidades
 import funcionalidades.ClienteFuncionalidades
 
 fun main(){
@@ -54,7 +54,7 @@ fun menuAutomoviles() {
         seleccion=comprobarSeleccionMenu(str)
 
         when (seleccion) {
-            1 -> automovilFuncionalidades.insertarAutomovil()
+            1 -> automovilFuncionalidades.insertarAutomovil("./src/main/kotlin/Automoviles.txt")
             2 -> automovilFuncionalidades.obtenerAutomovilesPorRangoDePrecio()
             3 -> automovilFuncionalidades.obtenerAutomovilesPorMarca()
             4 -> automovilFuncionalidades.obtenerTodosLosAutomoviles()
@@ -72,6 +72,7 @@ fun menuClientes(){
     var str: String
     val cliente= ClienteFuncionalidades()
     do {
+        println()
         println("¿Qué deseas hacer con el cliente?")
         println("1. Añadir un cliente")
         println("2. Eliminar un cliente")

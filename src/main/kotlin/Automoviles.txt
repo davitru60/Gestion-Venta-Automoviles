@@ -1,0 +1,8 @@
+Ford,Mustang,2021,rojo,45000
+Chevrolet,Camaro,2022,azul,50000
+Toyota,Corolla,2023,blanco,35000
+Honda,Civic,2022,negro,32000
+Ford,F-150,2021,gris,55000
+Toyota,Camry,2023,plata,38000
+Chevrolet,Silverado,2022,negro,52000
+Honda,CR-V,2022,blanco,36000

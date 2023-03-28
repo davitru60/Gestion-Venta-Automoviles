@@ -27,6 +27,15 @@ class Automovil {
         this.precio=precio
     }
 
+    constructor(id:Int,precio:Double){
+        this.id=id
+        this.marca=""
+        this.modelo=""
+        this.ano=0
+        this.color=""
+        this.precio=precio
+    }
+
     override fun toString(): String {
         return "ID:$id, marca:$marca, modelo:$modelo, año:$ano, color:$color, precio:$precio€"
     }
