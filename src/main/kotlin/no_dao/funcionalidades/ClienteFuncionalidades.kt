@@ -4,24 +4,38 @@ import dao.ClienteImpDAO
 import no_dao.Cliente
 class ClienteFuncionalidades{
     private val clienteDAO= ClienteImpDAO()
+    /**
+     * Busca un cliente en el sistema a partir de su identificador único.
+     * Se solicita al usuario que ingrese el identificador del cliente y se utiliza el método buscarCliente de la clase
+     * ClienteImpDAO para buscar el cliente correspondiente.
+     */
     fun buscarCliente() {
         var id: Int
         println("Dime la id del cliente que desea buscar")
         id = readln().toInt()
         val buscarCliente = clienteDAO.buscarCliente(id)
-
     }
 
+    /**
+     * Muestra la lista de todos los clientes registrados en el sistema.
+     * Se utiliza el método verListaCliente de la clase ClienteImpDAO para obtener la lista de todos los clientes y se
+     * llama al método comprobarExistenciaClientes para comprobar si existen clientes en la lista y mostrarlos en pantalla.
+     */
     fun verClientes() {
         val verCliente = clienteDAO.verListaCliente()
         comprobarExistenciaClientes(verCliente)
     }
 
+    /**
+     * Comprueba si existen clientes en la lista y los muestra en pantalla.
+     * @param clientes la lista de clientes obtenida del método verListaCliente de la clase ClienteImpDAO.
+     */
     private fun comprobarExistenciaClientes(clientes: List<Cliente>) {
         for (cliente in clientes) {
             println(cliente)
         }
     }
+
 
     fun eliminarCliente() {
         var id: Int
