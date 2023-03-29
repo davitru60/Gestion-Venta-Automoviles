@@ -1,12 +1,11 @@
 package no_dao.funcionalidades
-import dao.AutomovilFichero
 import dao.AutomovilImpDAO
 import no_dao.Automovil
 import java.lang.NumberFormatException
 import kotlin.collections.ArrayList
 
 /**
- * Clase que llama a los métodos del objeto de acceso a datos , esta posee las reglas
+ * Clase que llama a los métodos del objeto de acceso a datos, esta posee las reglas
  * de negocio referentes a los automoviles.
  */
 class AutomovilFuncionalidades {
@@ -18,7 +17,7 @@ class AutomovilFuncionalidades {
     *@param rutaFichero la ruta del archivo que contiene los datos de los automóviles a insertar.
      */
     fun insertarAutomovil(rutaFichero:String){
-        val automovilFichero=AutomovilFichero()
+        val automovilFichero= AutomovilFichero()
         val automoviles=automovilFichero.leerArchivoAutomovil(rutaFichero)
 
         for(nuevoAutomovil in automoviles){

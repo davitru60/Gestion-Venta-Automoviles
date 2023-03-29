@@ -17,12 +17,7 @@ fun menuGeneral(){
         println("4. Salir del programa")
 
         str = readln()
-        seleccion =
-            try {
-                str.toInt()
-            } catch (e: Exception) {
-                -1
-            }
+        seleccion=comprobarSeleccionMenu(str)
 
         when(seleccion) {
             1 -> menuAutomoviles()
