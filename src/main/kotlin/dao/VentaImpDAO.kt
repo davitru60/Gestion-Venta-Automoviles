@@ -6,9 +6,23 @@ import no_dao.Venta
 import java.sql.PreparedStatement
 import java.sql.SQLException
 
+/**
+ * Implementación de la interfaz IVentaDAO que maneja las operaciones relacionadas con la tabla ventas en la base de datos.
+ * @property conexionBD objeto de la clase ConexionBD que se utiliza para establecer la conexión con la base de datos
+ * @constructor Crea un objeto VentaImpDAO con los parámetros de conexión a la base de datos
+ */
 class VentaImpDAO: IVentaDAO {
+
+    /**
+     * Objeto de la clase ConexionBD que se utiliza para establecer la conexión con la base de datos.
+     */
     private val conexionBD = ConexionBD(ConstantesBD.URL, ConstantesBD.USUARIO, ConstantesBD.CONTRASENIA)
 
+    /**
+     * Inserta una lista de ventas en la tabla ventas de la base de datos.
+     * @param v Lista de ventas a insertar.
+     * @return Lista de ventas insertadas.
+     */
     override fun insertarLista(v:ArrayList<Venta>):ArrayList<Venta>{
         conexionBD.conectar()
         var result: Int? = null
@@ -33,6 +47,11 @@ class VentaImpDAO: IVentaDAO {
         return v
     }
 
+    /**
+     * Obtiene una venta de la tabla ventas de la base de datos mediante su ID.
+     * @param id ID de la venta a obtener.
+     * @return Objeto de tipo Venta si se encuentra una venta con el ID especificado, null en caso contrario.
+     */
     override fun obtenerVentaMedianteID(id:Int):Venta? {
         conexionBD.conectar()
         val query = "SELECT * FROM ventas WHERE id = ?"
@@ -54,6 +73,10 @@ class VentaImpDAO: IVentaDAO {
         return venta
     }
 
+    /**
+     * Obtiene todas las ventas de la tabla ventas de la base de datos.
+     * @return Lista de objetos de tipo Venta que representan todas las ventas de la tabla ventas.
+     */
     override fun obtenerTodasLasVentas(): List<Venta> {
         conexionBD.conectar()
         val query = "SELECT * FROM ventas"
@@ -75,6 +98,11 @@ class VentaImpDAO: IVentaDAO {
         return ventas
     }
 
+    /**
+     * Actualiza una venta en la tabla ventas de la base de datos.
+     * @param venta Objeto de tipo Venta que representa la venta a actualizar.
+     * @return true si la venta se actualizó correctamente, false en caso contrario.
+     */
     override fun actualizarVentas(venta: Venta): Boolean {
         conexionBD.conectar()
         var result:Int?= null
@@ -102,6 +130,11 @@ class VentaImpDAO: IVentaDAO {
         return result == 1
     }
 
+    /**
+     * Borra una venta de la tabla ventas de la base de datos mediante su ID.
+     * @param id ID de la venta a borrar.
+     * @return true si la venta se borró correctamente, false en caso contrario.
+     */
     override fun borrarVenta(id: Int): Boolean {
         conexionBD.conectar()
         var existe = false

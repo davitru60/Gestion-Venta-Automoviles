@@ -3,8 +3,17 @@ package funcionalidades
 import dao.VentaImpDAO
 import no_dao.Venta
 
+/**
+Clase que contiene las funciones que manejan las ventas mediante el uso del objeto de la clase [VentaImpDAO].
+ */
 class VentasFuncionalidades {
+
     private val ventaDAO= VentaImpDAO()
+
+    /**
+    Función que borra una venta mediante la obtención del ID por medio de entrada de datos por teclado.
+    @return Boolean que indica si se borró la venta o no.
+     */
     fun borrarVenta() {
         var id: Int = 0
         println("Introduce el ID:")
@@ -18,6 +27,10 @@ class VentasFuncionalidades {
         println("Venta borrada: $borrado")
     }
 
+    /**
+    Función que actualiza una venta mediante la obtención de los datos necesarios por medio de entrada de datos por teclado.
+    @return Boolean que indica si se actualizó la venta o no.
+    */
     fun actualizarVentas() {
         var id: Int = 0
         var automovil_id: Int = 0
@@ -58,6 +71,9 @@ class VentasFuncionalidades {
         println("Venta actualizada: $actualizado")
     }
 
+    /**
+    Función que obtiene todas las ventas existentes en la base de datos.
+     */
     fun obtenerTodasLasVentas() {
         val todasLasVentas = ventaDAO.obtenerTodasLasVentas()
         println("Todas las ventas: $todasLasVentas")
@@ -73,6 +89,9 @@ class VentasFuncionalidades {
 
     }
 
+    /**
+    Función que obtiene una venta específica mediante la entrada de un ID por teclado.
+     */
     fun obtenerVentaMedianteID() {
 
         var id: Int = 0
@@ -92,6 +111,11 @@ class VentasFuncionalidades {
         }
     }
 
+    /**
+    Inserta una lista de ventas en la base de datos.
+
+    @return el número de ventas insertadas exitosamente en la base de datos.
+    */
     fun insertarListaVentas() {
         var automovil_id: Int = 0
         var cliente_id: Int = 0
