@@ -2,10 +2,17 @@ import funcionalidades.VentasFuncionalidades
 import no_dao.funcionalidades.AutomovilFuncionalidades
 import funcionalidades.ClienteFuncionalidades
 
+/**
+ * Función principal que se ejecuta al iniciar el programa. Llama a la función [menuGeneral].
+ */
 fun main(){
     menuGeneral()
 }
 
+/**
+ * Función que muestra el menú principal y permite al usuario elegir una de las opciones disponibles.
+ * Se ejecuta hasta que el usuario elige la opción 4 para salir del programa.
+ */
 fun menuGeneral(){
     var seleccion: Int
     var str: String
@@ -30,6 +37,11 @@ fun menuGeneral(){
     } while (seleccion != 0)
 }
 
+/**
+ * Función que muestra el menú de opciones relacionadas con los automóviles y permite al usuario
+ * elegir una de las opciones disponibles. Se ejecuta hasta que el usuario elige la opción 7 para volver
+ * al menú principal.
+ */
 fun menuAutomoviles() {
     val automovilFuncionalidades = AutomovilFuncionalidades()
     var seleccion=0
@@ -62,6 +74,11 @@ fun menuAutomoviles() {
 
 }
 
+/**
+ * Función que muestra el menú de opciones relacionadas con los clientes y permite al usuario
+ * elegir una de las opciones disponibles. Se ejecuta hasta que el usuario elige la opción 5 para volver
+ * al menú principal.
+ */
 fun menuClientes(){
     var seleccion=0
     var str: String
