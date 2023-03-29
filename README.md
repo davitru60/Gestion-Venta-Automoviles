@@ -1,6 +1,19 @@
 # ED_Automoviles
 El proyecto al ejecutarse se genera un menú general para moverse un las distintas funciones
 # Automoviles
+La clase AutomovilFuncionalidades tiene métodos para realizar diversas operaciones en la base de datos, como insertar automóviles, obtener automóviles por rango de precio, obtener automóviles por marca y obtener todos los automóviles. También tiene métodos auxiliares para comprobar si se han obtenido resultados de la base de datos y para verificar el rango de precios.
+
+El método insertarAutomovil lee un archivo de texto que contiene información sobre automóviles y llama al método comprobarInsercionAutomovil para insertar cada uno de ellos en la base de datos.
+
+El método comprobarInsercionAutomovil inserta un objeto Automovil en la base de datos y muestra un mensaje de éxito o fracaso en consecuencia.
+
+El método obtenerAutomovilesPorRangoDePrecio pide al usuario que ingrese un rango de precios y llama al método comprobarRangoDePrecios para verificar que el rango ingresado sea válido. Luego llama al método obtenerAutomovilPorRangoDePrecio de la clase AutomovilImpDAO para obtener todos los automóviles de la base de datos que se encuentren en el rango de precios especificado y llama al método comprobarExistenciaAutomoviles para verificar si se han obtenido resultados de la base de datos.
+
+El método obtenerAutomovilesPorMarca pide al usuario que ingrese una marca y llama al método obtenerAutomovilesPorMarca de la clase AutomovilImpDAO para obtener todos los automóviles de la base de datos que corresponden a esa marca y llama al método comprobarExistenciaAutomoviles para verificar si se han obtenido resultados de la base de datos.
+
+El método obtenerTodosLosAutomoviles llama al método obtenerTodosLosAutomoviles de la clase AutomovilImpDAO para obtener todos los automóviles de la base de datos y llama al método comprobarExistenciaAutomoviles para verificar si se han obtenido resultados de la base de datos.
+
+El método comprobarRangoDePrecios pide al usuario que ingrese un rango de precios y verifica si el límite inferior es menor o igual que el límite superior. Retorna un objeto Pair con los límites del rango de precios ingresado.
 # Cliente
 "buscarCliente": Esta función solicita al usuario que ingrese el identificador del cliente y utiliza el método "buscarCliente" de la clase "ClienteImpDAO" para buscar el cliente correspondiente en el sistema.
 
@@ -12,3 +25,18 @@ El proyecto al ejecutarse se genera un menú general para moverse un las distint
 
 "Volver al menú": Regresa al usuario el menú principal
 # Ventas
+La clase utiliza una instancia de la clase VentaImpDAO del paquete dao para realizar operaciones de base de datos relacionadas con las ventas. También utiliza la clase Venta del paquete no_dao para representar objetos de ventas.
+
+La clase VentasFuncionalidades define cinco funciones públicas:
+
+borrarVenta(): Esta función pide al usuario un ID de venta y luego utiliza el objeto ventaDAO para eliminar la venta correspondiente de la base de datos.
+
+actualizarVentas(): Esta función solicita al usuario información sobre una venta, crea un objeto Venta y utiliza el objeto ventaDAO para actualizar la venta correspondiente en la base de datos.
+
+obtenerTodasLasVentas(): Esta función utiliza el objeto ventaDAO para obtener todas las ventas de la base de datos y las imprime en la consola.
+
+obtenerVentaMedianteID(): Esta función solicita al usuario un ID de venta y utiliza el objeto ventaDAO para buscar la venta correspondiente en la base de datos. Si la venta se encuentra, se imprime en la consola.
+
+insertarListaVentas(): Esta función solicita al usuario información sobre varias ventas y crea objetos Venta para cada una. Luego utiliza el objeto ventaDAO para insertar las ventas en la base de datos.
+
+En resumen, esta clase proporciona una serie de funciones que permiten a los usuarios interactuar con las ventas almacenadas en la base de datos, como buscar, actualizar y eliminar ventas, así como agregar nuevas ventas.
