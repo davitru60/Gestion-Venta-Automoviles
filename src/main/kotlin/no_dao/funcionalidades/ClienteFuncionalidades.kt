@@ -36,7 +36,11 @@ class ClienteFuncionalidades{
         }
     }
 
-
+    /**
+     * Elimina un cliente del sistema a partir de su identificador único.
+     * Se solicita al usuario que ingrese el identificador del cliente y se utiliza el método eliminarCliente de la clase
+     * ClienteImpDAO para eliminar el cliente correspondiente.
+     */
     fun eliminarCliente() {
         var id: Int
         println("Dime la id del cliente que desea eliminar")
@@ -44,6 +48,11 @@ class ClienteFuncionalidades{
         val eliminarCliente = clienteDAO.eliminarCliente(id)
     }
 
+    /**
+     * Añade un cliente al sistema.
+     * Se solicita al usuario que ingrese el nombre, apellido, email y teléfono del cliente y se utiliza el método aniadirCliente de la clase
+     * ClienteImpDAO para añadir el cliente correspondiente.
+     */
     fun aniadirCliente() {
         var nombre: String
         var apellido: String
@@ -59,4 +68,5 @@ class ClienteFuncionalidades{
         telefono = readln()
         val aniadirCliente = clienteDAO.aniadirCliente(Cliente(nombre, apellido, email, telefono))
     }
+
 }
