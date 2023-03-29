@@ -30,7 +30,7 @@ class AutomovilFuncionalidades {
     * Verifica si un automóvil se inserta correctamente en la base de datos y muestra un mensaje en consecuencia.
     *@param nuevoAutomovil el objeto Automovil que se va a insertar en la base de datos.
      */
-    private fun comprobarInsercionAutomovil(nuevoAutomovil: Automovil) {
+    fun comprobarInsercionAutomovil(nuevoAutomovil: Automovil) {
         if (automovilDAO.insertarAutomovil(nuevoAutomovil)) {
             println("Se insertó correctamente el automovil")
         } else {
