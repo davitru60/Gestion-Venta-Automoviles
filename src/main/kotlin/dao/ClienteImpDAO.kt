@@ -6,6 +6,10 @@ import no_dao.Cliente
 
 class ClienteImpDAO : IClienteDAO {
     private val conexionBD = ConexionBD(ConstantesBD.URL, ConstantesBD.USUARIO, ConstantesBD.CONTRASENIA)
+    /**
+     * Agrega un nuevo cliente a la base de datos.
+     * @param cliente el objeto Cliente que contiene los datos del cliente a agregar.
+     */
     override fun aniadirCliente(cliente:Cliente) {
         val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);"
         conexionBD.conectar()
@@ -18,6 +22,10 @@ class ClienteImpDAO : IClienteDAO {
         conexionBD.desconectar()
     }
 
+    /**
+     * Elimina un cliente de la base de datos a partir de su identificador único.
+     * @param id el identificador único del cliente a eliminar.
+     */
     override fun eliminarCliente(id:Int){
         val sql = "delete from clientes where id = ?;"
         conexionBD.conectar()
@@ -27,6 +35,10 @@ class ClienteImpDAO : IClienteDAO {
         conexionBD.desconectar()
     }
 
+    /**
+     * Obtiene una lista con todos los clientes registrados en la base de datos.
+     * @return la lista de clientes obtenida de la base de datos.
+     */
     override fun verListaCliente(): List<Cliente>{
         val sql = "select * from clientes;"
         val clientes = ArrayList<Cliente>()
@@ -47,6 +59,11 @@ class ClienteImpDAO : IClienteDAO {
         return clientes
     }
 
+    /**
+     * Busca un cliente en la base de datos a partir de su identificador único.
+     * @param id el identificador único del cliente a buscar.
+     * @return el objeto Cliente correspondiente al identificador ingresado o null si no se encontró ningún cliente.
+     */
     override fun buscarCliente(id: Int): Cliente? {
         val sql = "select * from clientes where id = ?;"
         conexionBD.conectar()
