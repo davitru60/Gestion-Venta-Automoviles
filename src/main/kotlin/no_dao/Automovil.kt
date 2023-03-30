@@ -1,5 +1,8 @@
 package no_dao
-
+/*
+* Esta clase representa la entidad Automovil de la base de datos, por lo tanto
+* tiene los mismos atributos que la tabla automoviles de la base de datos
+* */
 class Automovil {
     var id:Int
     var marca:String
