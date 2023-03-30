@@ -21,13 +21,14 @@ internal class ClienteImpDAOTest{
             // Ejecución del método a probar
             val dao = ClienteImpDAO()
             val resultado = dao.aniadirCliente(cliente)
+            assertTrue(resultado)
         }
 
         @Test
         fun eliminarCliente() {
             val ClienteDao = ClienteImpDAO()
-            val cliente = Cliente(0,"Raúl", "Gutiérrez Merino", "correoDePrueba@gmail.com", "123456789")
             val eliminado = ClienteDao.eliminarCliente(0)
+            assertTrue(eliminado)
         }
     }
 }

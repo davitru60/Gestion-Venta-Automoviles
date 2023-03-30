@@ -10,29 +10,51 @@ class ClienteImpDAO : IClienteDAO {
      * Agrega un nuevo cliente a la base de datos.
      * @param cliente el objeto Cliente que contiene los datos del cliente a agregar.
      */
-    override fun aniadirCliente(cliente:Cliente) {
-        val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);"
+    override fun aniadirCliente(cliente:Cliente): Boolean {
         conexionBD.conectar()
-        val ps = conexionBD.getPreparedStatement(sql)
-        ps?.setString(1, cliente.nombre)
-        ps?.setString(2, cliente.apellido)
-        ps?.setString(3, cliente.email)
-        ps?.setString(4, cliente.telefono)
-        ps?.executeUpdate()
+        var ejecucionConsulta:Int
+        var resultado:Int?=1
+        try{
+            val sql = "insert into clientes (nombre, apellido, email, telefono) values (?, ?, ?, ?);"
+            val ps = conexionBD.getPreparedStatement(sql)
+            ps?.setString(1, cliente.nombre)
+            ps?.setString(2, cliente.apellido)
+            ps?.setString(3, cliente.email)
+            ps?.setString(4, cliente.telefono)
+            ps?.executeUpdate()
+            conexionBD.desconectar()
+            ejecucionConsulta=1
+    }catch(e:Exception){
+        println("Error al añadir el Cliente:${e.message}")
+        e.printStackTrace()
         conexionBD.desconectar()
+        ejecucionConsulta=0
+    }
+        return resultado==ejecucionConsulta
     }
 
     /**
      * Elimina un cliente de la base de datos a partir de su identificador único.
      * @param id el identificador único del cliente a eliminar.
      */
-    override fun eliminarCliente(id:Int){
-        val sql = "delete from clientes where id = ?;"
+    override fun eliminarCliente(id:Int):Boolean{
+        var ejecucionConsulta:Int
+        var resultado:Int?=1
         conexionBD.conectar()
-        val ps = conexionBD.getPreparedStatement(sql)
-        ps?.setInt(1, id)
-        ps?.executeUpdate()
+        try{
+            val sql = "delete from clientes where id = ?;"
+            val ps = conexionBD.getPreparedStatement(sql)
+            ps?.setInt(1, id)
+            ps?.executeUpdate()
+            conexionBD.desconectar()
+            ejecucionConsulta=1
+    }catch(e:Exception){
+        println("Error al eliminar el Cliente:${e.message}")
+        e.printStackTrace()
         conexionBD.desconectar()
+        ejecucionConsulta=0
+    }
+        return resultado==ejecucionConsulta
     }
 
     /**
