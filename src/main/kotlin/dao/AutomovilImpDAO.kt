@@ -1,15 +1,17 @@
 package dao
+
 import conexionBD.ConexionBD
 import conexionBD.ConstantesBD
 import no_dao.Automovil
 import no_dao.ConstantesBDAutomovil
+import java.sql.SQLException
 
 /**
  * Esta clase implementa la interfaz IAutomovilDAO y proporciona la funcionalidad
  * para acceder a los datos de los automóviles en la capa de persistencia o capa de datos.
  */
-class AutomovilImpDAO:IAutomovilDAO {
-    private val conexionBD = ConexionBD(ConstantesBD.URL,ConstantesBD.USUARIO,ConstantesBD.CONTRASENIA)
+class AutomovilImpDAO : IAutomovilDAO {
+    private val conexionBD = ConexionBD(ConstantesBD.URL, ConstantesBD.USUARIO, ConstantesBD.CONTRASENIA)
 
 
     /**
@@ -20,31 +22,26 @@ class AutomovilImpDAO:IAutomovilDAO {
      */
     override fun insertarAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
-        var ejecucionConsulta:Int
-        var resultado:Int?=1
-        try{
-            val consulta="INSERT INTO AUTOMOVILES (marca,modelo,ano,color,precio) " +
-                    "VALUES(?,?,?,?,?)"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            preparedStatement?.setString(1,automovil.marca)
-            preparedStatement?.setString(2,automovil.modelo)
-            preparedStatement?.setInt(3,automovil.ano)
-            preparedStatement?.setString(4,automovil.color)
-            preparedStatement?.setDouble(5,automovil.precio)
+        var resultado = 0
+        try {
+            val consulta = "INSERT INTO AUTOMOVILES (marca,modelo,ano,color,precio) VALUES(?,?,?,?,?)"
+            val preparedStatement = conexionBD.getPreparedStatement(consulta)
+            preparedStatement?.setString(1, automovil.marca)
+            preparedStatement?.setString(2, automovil.modelo)
+            preparedStatement?.setInt(3, automovil.ano)
+            preparedStatement?.setString(4, automovil.color)
+            preparedStatement?.setDouble(5, automovil.precio)
 
-            resultado= preparedStatement?.executeUpdate()
-            ejecucionConsulta=1
-
+            resultado = preparedStatement?.executeUpdate() ?: 0
             preparedStatement?.close()
-            conexionBD.desconectar()
 
-        }catch(e:Exception){
+        } catch (e: SQLException) {
             println("Error al insertar el automovil:${e.message}")
             e.printStackTrace()
+        } finally {
             conexionBD.desconectar()
-            ejecucionConsulta=0
         }
-        return resultado==ejecucionConsulta
+        return resultado > 0
     }
 
     /**
@@ -55,29 +52,19 @@ class AutomovilImpDAO:IAutomovilDAO {
      */
     override fun actualizarPrecioAutomovil(automovil: Automovil): Boolean {
         conexionBD.conectar()
-        var ejecucionConsulta:Int
-        var resultado:Int?=1
+        val resultado: Int
 
-        try{
-            val consulta="UPDATE AUTOMOVILES SET PRECIO=? WHERE ID=?"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            preparedStatement?.setDouble(1,automovil.precio)
-            preparedStatement?.setInt(2,automovil.id)
 
-            resultado=preparedStatement?.executeUpdate()
-            ejecucionConsulta=1
+        val consulta = "UPDATE AUTOMOVILES SET PRECIO=? WHERE ID=?"
+        val preparedStatement = conexionBD.getPreparedStatement(consulta)
+        preparedStatement?.setDouble(1, automovil.precio)
+        preparedStatement?.setInt(2, automovil.id)
 
-            preparedStatement?.close()
-            conexionBD.desconectar()
+        resultado = preparedStatement?.executeUpdate() ?: throw SQLException("Error al actualizar el automovil")
+        preparedStatement.close()
+        conexionBD.desconectar()
 
-        }catch(e:Exception){
-            println("Error al editar el automovil:${e.message}")
-            e.printStackTrace()
-            conexionBD.desconectar()
-            ejecucionConsulta=0
-        }
-
-        return resultado==ejecucionConsulta
+        return resultado > 0
     }
 
     /**
@@ -86,7 +73,7 @@ class AutomovilImpDAO:IAutomovilDAO {
      * @param id el ID del registro a comprobar
      * @return el número de registros encontrados con el ID especificado (debería ser 0 o 1)
      */
-    fun comprobarExistenciaDelRegistroPorID(id:Int):Int{
+    fun comprobarExistenciaDelRegistroPorID(id: Int): Int {
         val consultaExistencia = "SELECT COUNT(*) FROM AUTOMOVILES WHERE ID=?"
         val preparedStatementExistencia = conexionBD.getPreparedStatement(consultaExistencia)
         preparedStatementExistencia?.setInt(1, id)
@@ -104,30 +91,31 @@ class AutomovilImpDAO:IAutomovilDAO {
      * @param limiteSuperior el límite superior del rango de precios.
      * @return una lista de objetos Automovil cuyo precio se encuentra dentro del rango especificado, o null si se produce un error.
      */
-    override fun obtenerAutomovilPorRangoDePrecio(limiteInferior: Double, limiteSuperior: Double): ArrayList<Automovil>? {
+    override fun obtenerAutomovilPorRangoDePrecio(limiteInferior: Double, limiteSuperior: Double): ArrayList<Automovil> {
         conexionBD.conectar()
-        val automoviles=ArrayList<Automovil>()
-        try{
-            val consulta="SELECT * FROM AUTOMOVILES WHERE PRECIO BETWEEN ? AND ? ORDER BY PRICE"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            preparedStatement?.setDouble(1,limiteInferior)
-            preparedStatement?.setDouble(2,limiteSuperior)
-            val resultSet=preparedStatement?.executeQuery()
-            while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
-                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
-                automoviles.add(automovil)
-            }
-            preparedStatement?.close()
-            conexionBD.desconectar()
+        val automoviles = ArrayList<Automovil>()
 
-            return automoviles
+        val consulta = "SELECT * FROM AUTOMOVILES WHERE PRECIO BETWEEN ? AND ? ORDER BY PRECIO"
+        val preparedStatement = conexionBD.getPreparedStatement(consulta)
+        preparedStatement?.setDouble(1, limiteInferior)
+        preparedStatement?.setDouble(2, limiteSuperior)
+        val resultSet = preparedStatement?.executeQuery() ?: throw SQLException("La consulta no ha devuelto ningún resultado")
 
-        }catch(e:Exception){
-            println("Algo no fue bien")
-            conexionBD.desconectar()
+        while (resultSet.next()) {
+            val automovil = Automovil(
+                resultSet.getInt(ConstantesBDAutomovil.ID),
+                resultSet.getString(ConstantesBDAutomovil.MARCA),
+                resultSet.getString(ConstantesBDAutomovil.MODELO),
+                resultSet.getInt(ConstantesBDAutomovil.ANO),
+                resultSet.getString(ConstantesBDAutomovil.COLOR),
+                resultSet.getDouble(ConstantesBDAutomovil.PRECIO)
+            )
+            automoviles.add(automovil)
         }
-        return null
+
+        preparedStatement.close()
+        conexionBD.desconectar()
+        return automoviles
     }
 
     /**
@@ -136,25 +124,28 @@ class AutomovilImpDAO:IAutomovilDAO {
      * @param marca la marca de los automóviles a buscar
      * @return una lista de automóviles que pertenecen a la marca especificada
      */
-    override fun obtenerAutomovilesPorMarca(marca: String): ArrayList<Automovil>? {
+    override fun obtenerAutomovilesPorMarca(marca: String): ArrayList<Automovil> {
         conexionBD.conectar()
-        val automoviles=ArrayList<Automovil>()
-        try{
-            val consulta="SELECT * FROM AUTOMOVILES WHERE marca=?"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            preparedStatement?.setString(1,marca)
-            val resultSet=preparedStatement?.executeQuery()
-            while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
-                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
-                automoviles.add(automovil)
-            }
-
-            return automoviles
-        }catch(e:Exception){
-            println("Algo no fue bien")
+        val automoviles = ArrayList<Automovil>()
+        val consulta = "SELECT * FROM AUTOMOVILES WHERE marca=?"
+        val preparedStatement = conexionBD.getPreparedStatement(consulta)
+        preparedStatement?.setString(1, marca)
+        val resultSet =
+            preparedStatement?.executeQuery() ?: throw SQLException("La consulta no ha devuelto ningún resultado")
+        while (resultSet.next()) {
+            val automovil = Automovil(
+                resultSet.getInt(ConstantesBDAutomovil.ID),
+                resultSet.getString(ConstantesBDAutomovil.MARCA),
+                resultSet.getString(ConstantesBDAutomovil.MODELO),
+                resultSet.getInt(ConstantesBDAutomovil.ANO),
+                resultSet.getString(ConstantesBDAutomovil.COLOR),
+                resultSet.getDouble(ConstantesBDAutomovil.PRECIO)
+            )
+            automoviles.add(automovil)
         }
-        return null
+        preparedStatement.close()
+        conexionBD.desconectar()
+        return automoviles
     }
 
     /**
@@ -164,20 +155,28 @@ class AutomovilImpDAO:IAutomovilDAO {
      */
     override fun obtenerTodosLosAutomoviles(): ArrayList<Automovil>? {
         conexionBD.conectar()
-        val automoviles=ArrayList<Automovil>()
-        try{
-            val consulta="SELECT * FROM AUTOMOVILES"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            val resultSet=preparedStatement?.executeQuery()
-            while(resultSet?.next()==true){
-                val automovil=Automovil(resultSet.getInt(ConstantesBDAutomovil.ID),resultSet.getString(ConstantesBDAutomovil.MARCA),resultSet.getString(ConstantesBDAutomovil.MODELO),
-                    resultSet.getInt(ConstantesBDAutomovil.ANO),resultSet.getString(ConstantesBDAutomovil.COLOR),resultSet.getDouble(ConstantesBDAutomovil.PRECIO))
+        val automoviles = ArrayList<Automovil>()
+        try {
+            val consulta = "SELECT * FROM AUTOMOVILES"
+            val preparedStatement = conexionBD.getPreparedStatement(consulta)
+            val resultSet = preparedStatement?.executeQuery()?: throw SQLException("La consulta no ha devuelto ningún resultado")
+            while (resultSet.next()) {
+                val automovil = Automovil(
+                    resultSet.getInt(ConstantesBDAutomovil.ID),
+                    resultSet.getString(ConstantesBDAutomovil.MARCA),
+                    resultSet.getString(ConstantesBDAutomovil.MODELO),
+                    resultSet.getInt(ConstantesBDAutomovil.ANO),
+                    resultSet.getString(ConstantesBDAutomovil.COLOR),
+                    resultSet.getDouble(ConstantesBDAutomovil.PRECIO)
+                )
                 automoviles.add(automovil)
             }
 
             return automoviles
-        }catch(e:Exception){
+        } catch (e: SQLException) {
             println("Algo no fue bien")
+        } finally {
+            conexionBD.desconectar()
         }
         return null
     }
@@ -189,25 +188,22 @@ class AutomovilImpDAO:IAutomovilDAO {
      */
     override fun eliminarAutomovil(id: Int): Boolean {
         conexionBD.conectar()
-        var ejecucionConsulta:Int
-        var resultado:Int?=1
-        try{
+        var resultado = 0
+        try {
             //Eliminar el registro
-            val consulta="DELETE FROM AUTOMOVILES WHERE ID=?"
-            val preparedStatement=conexionBD.getPreparedStatement(consulta)
-            preparedStatement?.setInt(1,id)
+            val consulta = "DELETE FROM AUTOMOVILES WHERE ID=?"
+            val preparedStatement = conexionBD.getPreparedStatement(consulta)
+            preparedStatement?.setInt(1, id)
 
-            resultado=preparedStatement?.executeUpdate()
-            ejecucionConsulta=1
+            resultado = preparedStatement?.executeUpdate() ?: 0
             preparedStatement?.close()
 
-            conexionBD.desconectar()
-
-        }catch(e:Exception){
+        } catch (e: Exception) {
             println("Error al eliminar el automovil:${e.message}")
-            ejecucionConsulta=0
+
+        } finally {
             conexionBD.desconectar()
         }
-        return resultado==ejecucionConsulta
+        return resultado > 0
     }
 }

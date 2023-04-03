@@ -1,10 +1,5 @@
-package dao
-
-import conexionBD.ConexionBD
-import no_dao.Automovil
+import dao.ClienteImpDAO
 import no_dao.Cliente
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 
