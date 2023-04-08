@@ -1,4 +1,4 @@
-package entidades
+package constantes
 
 class ConstantesBDAutomovil {
     companion object{

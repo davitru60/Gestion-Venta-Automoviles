@@ -1,7 +1,7 @@
 package dao
 
 import conexionBD.ConexionBD
-import conexionBD.ConstantesBD
+import constantes.ConstantesBD
 import entidades.Cliente
 
 class ClienteImpDAO : IClienteDAO {

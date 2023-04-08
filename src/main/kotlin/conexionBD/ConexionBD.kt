@@ -1,5 +1,6 @@
 package conexionBD
 
+import constantes.ConstantesBD
 import java.sql.*
 
 /**

@@ -1,4 +1,4 @@
-package conexionBD
+package constantes
 
 class ConstantesBD {
     companion object{

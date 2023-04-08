@@ -1,9 +1,9 @@
 package dao
 
 import conexionBD.ConexionBD
-import conexionBD.ConstantesBD
+import constantes.ConstantesBD
 import entidades.Automovil
-import entidades.ConstantesBDAutomovil
+import constantes.ConstantesBDAutomovil
 import java.sql.SQLException
 
 /**
