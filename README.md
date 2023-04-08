@@ -28,7 +28,7 @@ El método comprobarRangoDePrecios pide al usuario que ingrese un rango de preci
 "Volver al menú": Regresa al usuario el menú principal
 
 # Ventas
-La clase utiliza una instancia de la clase VentaImpDAO del paquete dao para realizar operaciones de base de datos relacionadas con las ventas. También utiliza la clase Venta del paquete no_dao para representar objetos de ventas.
+La clase utiliza una instancia de la clase VentaImpDAO del paquete dao para realizar operaciones de base de datos relacionadas con las ventas. También utiliza la clase Venta del paquete entidades para representar objetos de ventas.
 
 La clase VentasFuncionalidades define cinco funciones públicas:
 

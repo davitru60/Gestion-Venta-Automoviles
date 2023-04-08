@@ -1,4 +1,4 @@
-package no_dao
+package entidades
 
 class ConstantesBDAutomovil {
     companion object{

@@ -1,4 +1,4 @@
-package no_dao
+package entidades
 /**
  * Esta clase representa una Venta de un automóvil a un cliente.
  *

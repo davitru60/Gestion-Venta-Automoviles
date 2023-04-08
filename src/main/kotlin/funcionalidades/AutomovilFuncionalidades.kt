@@ -1,6 +1,6 @@
-package no_dao.funcionalidades
+package funcionalidades
 import dao.AutomovilImpDAO
-import no_dao.Automovil
+import entidades.Automovil
 import java.lang.NumberFormatException
 import kotlin.collections.ArrayList
 

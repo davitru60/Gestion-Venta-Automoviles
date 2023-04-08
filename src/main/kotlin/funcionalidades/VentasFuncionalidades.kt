@@ -1,7 +1,7 @@
 package funcionalidades
 
 import dao.VentaImpDAO
-import no_dao.Venta
+import entidades.Venta
 
 /**
 Clase que contiene las funciones que manejan las ventas mediante el uso del objeto de la clase [VentaImpDAO].

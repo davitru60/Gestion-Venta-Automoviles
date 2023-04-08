@@ -2,7 +2,7 @@ package dao
 
 import conexionBD.ConexionBD
 import conexionBD.ConstantesBD
-import no_dao.Venta
+import entidades.Venta
 import java.sql.PreparedStatement
 import java.sql.SQLException
 

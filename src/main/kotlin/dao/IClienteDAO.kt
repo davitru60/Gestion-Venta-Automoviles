@@ -1,6 +1,6 @@
 package dao
 
-import no_dao.Cliente
+import entidades.Cliente
 
 interface IClienteDAO {
     fun aniadirCliente(cliente:Cliente):Boolean

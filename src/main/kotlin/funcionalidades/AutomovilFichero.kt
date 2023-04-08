@@ -1,6 +1,6 @@
-package no_dao.funcionalidades
+package funcionalidades
 
-import no_dao.Automovil
+import entidades.Automovil
 import java.io.File
 import java.io.IOException
 

@@ -1,5 +1,5 @@
 import funcionalidades.VentasFuncionalidades
-import no_dao.funcionalidades.AutomovilFuncionalidades
+import funcionalidades.AutomovilFuncionalidades
 import funcionalidades.ClienteFuncionalidades
 
 /**
@@ -136,7 +136,6 @@ fun menuVentas(){
     }while(seleccion !=0)
 
 }
-
 
 private fun comprobarSeleccionMenu(str: String): Int {
     val seleccion1: Int = try {

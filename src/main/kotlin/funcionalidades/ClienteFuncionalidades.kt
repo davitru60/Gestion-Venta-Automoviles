@@ -1,7 +1,7 @@
 package funcionalidades
 
 import dao.ClienteImpDAO
-import no_dao.Cliente
+import entidades.Cliente
 class ClienteFuncionalidades{
     private val clienteDAO= ClienteImpDAO()
     /**

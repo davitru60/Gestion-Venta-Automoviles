@@ -1,5 +1,5 @@
 package dao
-import no_dao.Automovil
+import entidades.Automovil
 
 /**
  * Interfaz que define los métodos para realizar operaciones CRUD en la base de datos de Automóviles.

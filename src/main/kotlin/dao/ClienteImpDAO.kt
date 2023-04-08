@@ -2,7 +2,7 @@ package dao
 
 import conexionBD.ConexionBD
 import conexionBD.ConstantesBD
-import no_dao.Cliente
+import entidades.Cliente
 
 class ClienteImpDAO : IClienteDAO {
     private val conexionBD = ConexionBD(ConstantesBD.URL, ConstantesBD.USUARIO, ConstantesBD.CONTRASENIA)
