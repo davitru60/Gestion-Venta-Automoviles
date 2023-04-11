@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/84265707/231301643-492a1d09-fbb8-4e31-8c1a-ec8a07d59402.png)
+
 # ED_Automoviles
 El proyecto al ejecutarse se genera un menú general para moverse un las distintas funciones
 
