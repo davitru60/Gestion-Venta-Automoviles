@@ -1,8 +1,9 @@
-import dao.AutomovilImpDAO
-import no_dao.Automovil
-import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
+
+import dao.AutomovilImpDAO
+import entidades.Automovil
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 internal class AutomovilImpDAOTest {
 

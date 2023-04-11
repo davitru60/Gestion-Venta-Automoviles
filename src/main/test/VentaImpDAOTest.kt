@@ -1,11 +1,12 @@
+
+
 import dao.VentaImpDAO
-import no_dao.Venta
+import entidades.Venta
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
 internal class VentaImpDAOTest{
-    private val ventaDAO = VentaDAO()
+    private val ventaDAO = VentaImpDAO()
 
     @Test
     fun testActualizarVentas() {
