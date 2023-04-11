@@ -42,4 +42,3 @@ La clase VentasFuncionalidades define cinco funciones públicas:
 
 "insertarListaVentas()": Esta función solicita al usuario información sobre varias ventas y crea objetos Venta para cada una. Luego utiliza el objeto ventaDAO para insertar las ventas en la base de datos.
 
-En resumen, esta clase proporciona una serie de funciones que permiten a los usuarios interactuar con las ventas almacenadas en la base de datos, como buscar, actualizar y eliminar ventas, así como agregar nuevas ventas.
