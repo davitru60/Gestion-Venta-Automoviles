@@ -2,6 +2,11 @@
 ![image](https://user-images.githubusercontent.com/84265707/231301643-492a1d09-fbb8-4e31-8c1a-ec8a07d59402.png)
 El proyecto al ejecutarse se genera un menú general para moverse un las distintas funciones
 
+# Integrantes del proyecto
+- David Trujillo Carrero
+- Laura María Pedraza Gomez
+- Raúl Gutierrez Merino
+
 # Automoviles
 La clase AutomovilFuncionalidades tiene métodos para realizar diversas operaciones en la base de datos, como insertar automóviles, obtener automóviles por rango de precio, obtener automóviles por marca y obtener todos los automóviles. También tiene métodos auxiliares para comprobar si se han obtenido resultados de la base de datos y para verificar el rango de precios.
 
