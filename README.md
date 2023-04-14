@@ -15,10 +15,6 @@ Link de la wiki del proyecto: https://github.com/davitru60/ED_Automoviles/wiki
 
 Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
 
-# Obtencion del código
-
-`clone https://github.com/davitru60/ED_Automoviles.git`
-
 
 # Explicación de los elementos principales del programa
 ## Automoviles
