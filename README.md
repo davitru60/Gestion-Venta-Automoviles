@@ -9,8 +9,9 @@ El proyecto al ejecutarse se genera un menú general para moverse un las distint
 
 Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
 
-#Obtencion del código
-> clone https://github.com/davitru60/ED_Automoviles.git
+# Obtencion del código
+
+`clone https://github.com/davitru60/ED_Automoviles.git`
 
 
 # Explicación de los elementos principales del programa
