@@ -9,7 +9,12 @@ El proyecto al ejecutarse se genera un menú general para moverse un las distint
 
 Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
 
-# Automoviles
+#Obtencion del código
+> clone https://github.com/davitru60/ED_Automoviles.git
+
+
+# Explicación de los elementos principales del programa
+## Automoviles
 La clase AutomovilFuncionalidades tiene métodos para realizar diversas operaciones en la base de datos, como insertar automóviles, obtener automóviles por rango de precio, obtener automóviles por marca y obtener todos los automóviles. También tiene métodos auxiliares para comprobar si se han obtenido resultados de la base de datos y para verificar el rango de precios.
 
 El método insertarAutomovil lee un archivo de texto que contiene información sobre automóviles y llama al método comprobarInsercionAutomovil para insertar cada uno de ellos en la base de datos.
@@ -24,7 +29,7 @@ El método obtenerTodosLosAutomoviles llama al método obtenerTodosLosAutomovile
 
 El método comprobarRangoDePrecios pide al usuario que ingrese un rango de precios y verifica si el límite inferior es menor o igual que el límite superior. Retorna un objeto Pair con los límites del rango de precios ingresado.
 
-# Cliente
+## Cliente
 "buscarCliente": Esta función solicita al usuario que ingrese el identificador del cliente y utiliza el método "buscarCliente" de la clase "ClienteImpDAO" para buscar el cliente correspondiente en el sistema.
 
 "verClientes": Esta función obtiene la lista de todos los clientes registrados en el sistema utilizando el método "verListaCliente" de la clase "ClienteImpDAO" y luego llama al método "comprobarExistenciaClientes" para mostrar los clientes en pantalla.
@@ -35,7 +40,7 @@ El método comprobarRangoDePrecios pide al usuario que ingrese un rango de preci
 
 "Volver al menú": Regresa al usuario el menú principal
 
-# Ventas
+## Ventas
 La clase utiliza una instancia de la clase VentaImpDAO del paquete dao para realizar operaciones de base de datos relacionadas con las ventas. También utiliza la clase Venta del paquete entidades para representar objetos de ventas.
 
 La clase VentasFuncionalidades define cinco funciones públicas:
