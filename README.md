@@ -7,6 +7,8 @@ El proyecto al ejecutarse se genera un menú general para moverse un las distint
 - Laura María Pedraza Gomez
 - Raúl Gutierrez Merino
 
+Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
+
 # Automoviles
 La clase AutomovilFuncionalidades tiene métodos para realizar diversas operaciones en la base de datos, como insertar automóviles, obtener automóviles por rango de precio, obtener automóviles por marca y obtener todos los automóviles. También tiene métodos auxiliares para comprobar si se han obtenido resultados de la base de datos y para verificar el rango de precios.
 
