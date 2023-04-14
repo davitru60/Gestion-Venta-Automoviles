@@ -7,6 +7,9 @@ El proyecto al ejecutarse se genera un menú general para moverse un las distint
 - Laura María Pedraza Gomez
 - Raúl Gutierrez Merino
 
+# Para más información sobre nuestro proyecto
+https://github.com/davitru60/ED_Automoviles/wiki
+
 Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
 
 # Obtencion del código
