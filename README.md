@@ -12,6 +12,5 @@
 ## Para más información sobre nuestro proyecto
 - Link de la wiki del proyecto: https://github.com/davitru60/ED_Automoviles/wiki
 
-- Link de trello: https://trello.com/b/FxAfmaI7/edautomoviles
 
 
