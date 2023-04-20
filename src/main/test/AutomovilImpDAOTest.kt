@@ -5,6 +5,8 @@ import entidades.Automovil
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
+
+
 internal class AutomovilImpDAOTest {
 
     @Test

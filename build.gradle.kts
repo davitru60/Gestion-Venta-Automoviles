@@ -14,8 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation("junit:junit:4.13.1")
-    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("junit:junit:4.13.2")
+    implementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
     testImplementation(kotlin("test"))
     implementation("mysql:mysql-connector-java:8.0.27")
 }
@@ -31,3 +32,4 @@ tasks.withType<KotlinCompile> {
 application {
     mainClass.set("MainKt")
 }
+

@@ -38,8 +38,6 @@ INSERT INTO automoviles (marca, modelo, ano, color, precio) VALUES ('Nissan', 'V
 
 INSERT INTO clientes (nombre, apellido, email, telefono) VALUES ('Juan', 'Pérez', 'juanperez@gmail.com', '555-1234');
 INSERT INTO clientes (nombre, apellido, email, telefono) VALUES ('María', 'González', 'mariagonzalez@yahoo.com', '555-5678');
-INSERT INTO clientes (nombre, apellido, email, telefono) VALUES ('Pedro', 'López', NULL, '555-9012');
-INSERT INTO clientes (nombre, apellido, email, telefono) VALUES ('Ana', 'Martínez', 'anamartinez@hotmail.com', NULL);
 INSERT INTO clientes (nombre, apellido, email, telefono) VALUES ('Carlos', 'García', 'carlosgarcia@gmail.com','555-3456');
 
 INSERT INTO ventas (automovil_id, cliente_id, fecha, precio_venta) VALUES (1, 1, '2022-01-05', 11000.00);

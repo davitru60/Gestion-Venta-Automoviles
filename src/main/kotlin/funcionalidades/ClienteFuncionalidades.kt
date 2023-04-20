@@ -14,6 +14,7 @@ class ClienteFuncionalidades{
         println("Dime la id del cliente que desea buscar")
         id = readln().toInt()
         val buscarCliente = clienteDAO.buscarCliente(id)
+        println(buscarCliente.toString())
     }
 
     /**

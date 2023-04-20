@@ -2,8 +2,8 @@ package dao
 
 import conexionBD.ConexionBD
 import constantes.ConstantesBD
-import entidades.Automovil
 import constantes.ConstantesBDAutomovil
+import entidades.Automovil
 import java.sql.SQLException
 
 /**
@@ -63,7 +63,6 @@ class AutomovilImpDAO : IAutomovilDAO {
         resultado = preparedStatement?.executeUpdate() ?: throw SQLException("Error al actualizar el automovil")
         preparedStatement.close()
         conexionBD.desconectar()
-
         return resultado > 0
     }
 
@@ -74,13 +73,17 @@ class AutomovilImpDAO : IAutomovilDAO {
      * @return el número de registros encontrados con el ID especificado (debería ser 0 o 1)
      */
     fun comprobarExistenciaDelRegistroPorID(id: Int): Int {
+        conexionBD.conectar()
         val consultaExistencia = "SELECT COUNT(*) FROM AUTOMOVILES WHERE ID=?"
         val preparedStatementExistencia = conexionBD.getPreparedStatement(consultaExistencia)
         preparedStatementExistencia?.setInt(1, id)
         val resultSetExistencia = preparedStatementExistencia?.executeQuery()
         resultSetExistencia?.next()
         val countExistencia = resultSetExistencia?.getInt(1) ?: 0
+        preparedStatementExistencia?.close()
+        conexionBD.desconectar()
         return countExistencia
+
     }
 
 
