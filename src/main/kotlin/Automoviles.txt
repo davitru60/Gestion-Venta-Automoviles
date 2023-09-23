@@ -6,4 +6,4 @@ Ford,F-150,2021,gris,55000
 Toyota,Camry,2023,plata,38000
 Chevrolet,Silverado,2022,negro,52000
 Honda,CR-V,2022,blanco,36000
-Aston Martin,AMR23,2023,aguamarina,33333333
+Forf,Fiesta,2023,verde,20000
